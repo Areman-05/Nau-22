@@ -1,144 +1,77 @@
 "use client";
 
-import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
-import { ArtworkCard } from "@/components/ArtworkCard";
-import { getArtist } from "@/data/artists";
-import { getArtwork, getFeaturedArtworks } from "@/data/artworks";
-import { getCurrentExhibition } from "@/data/exhibitions";
-import { gallery } from "@/data/gallery";
-import { useLocale } from "@/context/LocaleContext";
-import { formatDateRange } from "@/lib/format";
-import { t } from "@/lib/i18n";
+import { AnimatePresence, motion } from "framer-motion";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { getExhibitionsByStatus } from "@/data/exhibitions";
 
 export default function HomePage() {
-  const { locale } = useLocale();
-  const current = getCurrentExhibition();
-  const featured = getFeaturedArtworks().slice(0, 6);
-  const inRoom =
-    current?.artworkSlugs
-      .map((slug) => getArtwork(slug))
-      .filter(Boolean)
-      .slice(0, 4) ?? [];
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const slides = getExhibitionsByStatus("current");
+  const currentExh = slides[currentIndex] ?? slides[0];
+  if (!currentExh) return null;
 
   return (
-    <>
-      <section className="hero">
-        <div className="hero__media">
-          <Image
-            src={
-              current?.heroImage.src ??
-              "https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=2000&q=80"
-            }
-            alt={current?.heroImage.alt ?? "Nau 22"}
-            fill
-            priority
-            className="hero__img"
-            sizes="100vw"
-          />
-          <div className="hero__shade" />
-        </div>
-        <div className="hero__content">
-          <p className="hero__brand">Nau 22</p>
-          <p className="hero__tag">
-            {locale === "es" ? gallery.tagline : gallery.taglineEn}
-          </p>
-          {current ? (
-            <div className="hero__expo">
-              <p className="eyebrow">
-                {locale === "es" ? "Exposición actual" : "Current exhibition"}
-              </p>
-              <h2>{current.title}</h2>
-              <p className="muted" style={{ color: "rgba(244,242,237,0.8)" }}>
-                {formatDateRange(current.startDate, current.endDate, locale)}
-              </p>
-              <div className="hero__actions">
-                <Link
-                  href={`/exposiciones/${current.slug}`}
-                  className="btn btn--primary"
-                >
-                  {t("cta", "viewExhibition", locale)}
-                </Link>
-                <Link href="/obras" className="btn btn--ghost">
-                  {t("cta", "availableWorks", locale)}
-                </Link>
-              </div>
+    <div className="w-full bg-background min-h-[85vh] flex flex-col justify-center relative overflow-hidden pb-16">
+      <button
+        type="button"
+        onClick={() =>
+          setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
+        }
+        className="absolute top-1/2 -translate-y-1/2 left-4 md:left-12 z-20 p-2 md:p-4 text-foreground hover:text-accent transition-colors"
+        aria-label="Anterior"
+      >
+        <ArrowLeft strokeWidth={3} size={48} />
+      </button>
+      <button
+        type="button"
+        onClick={() =>
+          setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
+        }
+        className="absolute top-1/2 -translate-y-1/2 right-4 md:right-12 z-20 p-2 md:p-4 text-foreground hover:text-accent transition-colors"
+        aria-label="Siguiente"
+      >
+        <ArrowRight strokeWidth={3} size={48} />
+      </button>
+
+      <div className="max-w-[1400px] w-full mx-auto px-20 md:px-32">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentExh.id}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center"
+          >
+            <div className="w-full h-[55vh] md:h-[70vh] flex items-center justify-center">
+              <Link href={`/programa/${currentExh.id}`} className="w-full h-full block">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={currentExh.image}
+                  alt={currentExh.title}
+                  className="w-full h-full object-contain drop-shadow-sm"
+                />
+              </Link>
             </div>
-          ) : null}
-        </div>
-      </section>
-
-      {inRoom.length > 0 ? (
-        <section className="section">
-          <h2 className="section-title">{t("labels", "nowInRoom", locale)}</h2>
-          <div className="grid-artworks">
-            {inRoom.map((art) =>
-              art ? <ArtworkCard key={art.slug} artwork={art} /> : null,
-            )}
-          </div>
-        </section>
-      ) : null}
-
-      <section className="section">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "baseline",
-            gap: "1rem",
-            flexWrap: "wrap",
-          }}
-        >
-          <h2 className="section-title">{t("labels", "available", locale)}</h2>
-          <Link href="/obras" className="text-link" style={{ marginTop: 0 }}>
-            {locale === "es" ? "Ver catálogo" : "View catalogue"}
-          </Link>
-        </div>
-        <div className="grid-artworks">
-          {featured.map((art) => (
-            <ArtworkCard key={art.slug} artwork={art} />
-          ))}
-        </div>
-      </section>
-
-      <section className="section split-2">
-        <div className="prose">
-          <p className="eyebrow">Poblenou · 22@</p>
-          <h2 className="section-title">
-            {locale === "es" ? "Una nau para mirar con tiempo" : "A warehouse for looking with time"}
-          </h2>
-          <p>{locale === "es" ? gallery.about.es : gallery.about.en}</p>
-          <Link href="/la-nau" className="btn btn--primary">
-            {t("nav", "space", locale)}
-          </Link>
-        </div>
-        <div>
-          <p>
-            {gallery.address}
-            <br />
-            {gallery.postalCode} {gallery.city}
-          </p>
-          <p className="muted">{gallery.metro}</p>
-          <p className="muted">
-            {locale === "es" ? gallery.hours.es : gallery.hours.en}
-          </p>
-          {current ? (
-            <p style={{ marginTop: "1.5rem" }}>
-              <span className="muted">
-                {locale === "es" ? "Ahora" : "Now"}:{" "}
-              </span>
-              {current.title}
-              <br />
-              <span className="small muted">
-                {current.artistSlugs
-                  .map((s) => getArtist(s)?.name)
-                  .filter(Boolean)
-                  .join(" · ")}
-              </span>
-            </p>
-          ) : null}
-        </div>
-      </section>
-    </>
+            <div className="flex flex-col justify-center font-sans">
+              <Link href={`/programa/${currentExh.id}`} className="group">
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight mb-2 text-foreground group-hover:text-accent transition-colors">
+                  &lsquo;{currentExh.title}&rsquo;
+                </h2>
+                <p className="text-2xl md:text-3xl font-medium text-foreground mb-12">
+                  de {currentExh.artists}
+                </p>
+                <div className="flex flex-col gap-2 text-lg md:text-xl text-foreground">
+                  <p className="font-medium">{currentExh.date}</p>
+                  <p className="font-bold uppercase tracking-wide">MIÉ — SÁB 12—20H</p>
+                </div>
+              </Link>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </div>
   );
 }
