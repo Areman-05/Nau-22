@@ -1,14 +1,8 @@
 "use client";
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import type { Locale } from "@/lib/i18n";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+
+export type Locale = "es" | "en";
 
 const LocaleContext = createContext<{
   locale: Locale;
