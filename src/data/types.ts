@@ -1,84 +1,67 @@
-export type ArtworkType = "edition" | "unique";
-export type Availability = "available" | "reserved" | "sold";
-export type Medium =
-  | "painting"
-  | "sculpture"
-  | "photography"
-  | "works-on-paper"
-  | "installation"
-  | "mixed-media";
+export interface PersonImage {
+  src: string;
+  alt: string;
+}
 
-export type ExhibitionStatus = "current" | "upcoming" | "past";
+export interface ArchiveWork {
+  title: string;
+  year: string;
+  medium: string;
+  dimensions: string;
+  image: string;
+}
 
 export interface Artist {
   slug: string;
   name: string;
-  birthYear: number;
+  country: string;
+  birthYear: number | string;
   basedIn: string;
+  practice: string;
+  practiceEn: string;
   bio: string;
   bioEn: string;
+  bio2: string;
+  bioEn2: string;
+  images: PersonImage[];
 }
 
-export interface Artwork {
+export interface Collaborator {
   slug: string;
+  name: string;
+  country: string;
+  year: string;
+  role: string;
+  roleEn: string;
+  bio: string;
+  bioEn: string;
+  bio2: string;
+  bioEn2: string;
+  images: PersonImage[];
+}
+
+export type ExhibitionStatus = "current" | "upcoming" | "past";
+
+export interface ExhibitionWork {
   title: string;
-  artistSlug: string;
-  year: number;
-  medium: Medium;
-  mediumLabel: string;
+  medium: string;
   dimensions: string;
-  type: ArtworkType;
-  /** Present for editions; null for unique / price-on-request */
-  priceEur: number | null;
-  editionSize: number | null;
-  editionAvailable: number | null;
-  availability: Availability;
-  description: string;
-  descriptionEn: string;
-  provenance: string;
-  images: {
-    src: string;
-    alt: string;
-  }[];
-  exhibitionSlugs: string[];
-  featured?: boolean;
+  year: string;
+  image?: string;
+  available?: boolean;
+  artist?: string;
 }
 
 export interface Exhibition {
-  slug: string;
-  title: string;
+  id: string;
   status: ExhibitionStatus;
-  startDate: string;
-  endDate: string;
+  title: string;
+  artists: string;
   artistSlugs: string[];
-  artworkSlugs: string[];
+  date: string;
+  location: string;
+  image: string;
   curatorialText: string;
   curatorialTextEn: string;
-  heroImage: {
-    src: string;
-    alt: string;
-  };
-}
-
-export interface VisitSlot {
-  id: string;
-  label: string;
-  time: string;
-}
-
-export type VisitMode = "exhibition" | "private";
-
-export interface VisitBooking {
-  mode: VisitMode;
-  date: string;
-  slotId: string;
-  name: string;
-  email: string;
-  artworkSlugs: string[];
-  notes: string;
-}
-
-export interface CartItem {
-  artworkSlug: string;
-  quantity: number;
+  works: ExhibitionWork[];
 }
