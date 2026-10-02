@@ -1,27 +1,29 @@
 import type { Metadata } from "next";
-import { Fraunces, Manrope } from "next/font/google";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import { Cormorant_Garamond, Montserrat } from "next/font/google";
+import { Footer, Header } from "@/components/Header";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
 
-const display = Fraunces({
-  variable: "--font-display",
+const serif = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
+  weight: ["300", "400", "600"],
+  style: ["normal", "italic"],
 });
 
-const body = Manrope({
-  variable: "--font-body",
+const sans = Montserrat({
+  variable: "--font-montserrat",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Nau 22 — Galería contemporánea · Poblenou",
-    template: "%s · Nau 22",
+    default: "nau 22 — Galería contemporánea · Poblenou",
+    template: "%s · nau 22",
   },
   description:
-    "Galería contemporánea en una nave industrial de Poblenou. Exposiciones, obras disponibles y visitas privadas para coleccionistas.",
+    "Galería de exposiciones contemporáneas en una nave de Poblenou, Barcelona.",
 };
 
 export default function RootLayout({
@@ -30,11 +32,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${display.variable} ${body.variable} h-full`}>
-      <body className="min-h-full flex flex-col antialiased">
+    <html lang="es" data-scroll-behavior="smooth" className={`${serif.variable} ${sans.variable} h-full`}>
+      <body className="min-h-full flex flex-col antialiased bg-background text-foreground font-sans">
         <Providers>
           <Header />
-          <main className="page-shell">{children}</main>
+          <main className="flex-grow relative z-10 pt-24 md:pt-32">{children}</main>
           <Footer />
         </Providers>
       </body>
