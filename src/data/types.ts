@@ -52,6 +52,20 @@ export interface ExhibitionWork {
   artist?: string;
 }
 
+export interface NewsItem {
+  id: string;
+  date: string;
+  category: string;
+  categoryEn: string;
+  title: string;
+  titleEn: string;
+  excerpt: string;
+  excerptEn: string;
+  image?: string;
+  quote?: string;
+  quoteEn?: string;
+}
+
 export interface Exhibition {
   id: string;
   status: ExhibitionStatus;
