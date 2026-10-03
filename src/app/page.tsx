@@ -1,77 +1,260 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { artists } from "@/data/artists";
 import { getExhibitionsByStatus } from "@/data/exhibitions";
+import { news } from "@/data/news";
+import { useLocale } from "@/context/LocaleContext";
+
+const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export default function HomePage() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const slides = getExhibitionsByStatus("current");
-  const currentExh = slides[currentIndex] ?? slides[0];
+  const { locale } = useLocale();
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
+  const currents = getExhibitionsByStatus("current");
+  const upcomingList = getExhibitionsByStatus("upcoming");
+  const currentExh = currents[0];
+  const upcomingExh = upcomingList[0] ?? currents[1];
+  const featuredArtists = artists.slice(0, 4);
+  const focusArtist = featuredArtists[0];
+  const newsItems = news.slice(0, 7);
+
   if (!currentExh) return null;
 
   return (
-    <div className="w-full bg-background min-h-[85vh] flex flex-col justify-center relative overflow-hidden pb-16">
-      <button
-        type="button"
-        onClick={() =>
-          setCurrentIndex((prev) => (prev === 0 ? slides.length - 1 : prev - 1))
-        }
-        className="absolute top-1/2 -translate-y-1/2 left-4 md:left-12 z-20 p-2 md:p-4 text-foreground hover:text-accent transition-colors"
-        aria-label="Anterior"
-      >
-        <ArrowLeft strokeWidth={3} size={48} />
-      </button>
-      <button
-        type="button"
-        onClick={() =>
-          setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
-        }
-        className="absolute top-1/2 -translate-y-1/2 right-4 md:right-12 z-20 p-2 md:p-4 text-foreground hover:text-accent transition-colors"
-        aria-label="Siguiente"
-      >
-        <ArrowRight strokeWidth={3} size={48} />
-      </button>
+    <div className="w-full bg-background min-h-screen flex flex-col overflow-hidden">
+      <section className="pt-32 md:pt-48 px-6 md:px-12 max-w-[1600px] mx-auto w-full">
+        <motion.div
+          initial={ready ? { opacity: 0, y: 20 } : false}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: easeOut }}
+        >
+          <h1 className="font-serif text-6xl md:text-[11rem] leading-[0.8] tracking-tighter uppercase mb-8 md:mb-16">
+            Nau 22
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-foreground/10 pb-12 md:pb-20">
+            <div className="md:col-span-3">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent flex items-center gap-3">
+                <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
+                {locale === "es" ? "Espacio de Arte Contemporáneo" : "Contemporary art space"}
+              </span>
+            </div>
+            <div className="md:col-span-6 font-sans text-lg md:text-2xl text-foreground/80 leading-snug">
+              {locale === "es"
+                ? "Operamos en la fricción entre la ruina industrial y el rigor curatorial del distrito 22@ de Barcelona."
+                : "We work in the friction between industrial ruin and curatorial rigour in Barcelona’s 22@ district."}
+            </div>
+            <div className="md:col-span-3 flex md:justify-end items-start mt-4 md:mt-0">
+              <Link
+                href="/proyecto"
+                className="font-sans text-xs uppercase tracking-[0.15em] font-semibold text-foreground hover:text-accent transition-colors border-b border-foreground/20 hover:border-accent pb-1 flex items-center gap-2"
+              >
+                {locale === "es" ? "Conocer la Galería" : "About the gallery"} <ArrowUpRight size={14} />
+              </Link>
+            </div>
+          </div>
+        </motion.div>
+      </section>
 
-      <div className="max-w-[1400px] w-full mx-auto px-20 md:px-32">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentExh.id}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center"
-          >
-            <div className="w-full h-[55vh] md:h-[70vh] flex items-center justify-center">
-              <Link href={`/programa/${currentExh.id}`} className="w-full h-full block">
+      <section className="px-6 md:px-12 max-w-[1600px] mx-auto w-full mb-32 md:mb-48">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+          <div className="md:col-span-8 flex flex-col group">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: easeOut }}
+              className="w-full h-full flex flex-col"
+            >
+              <Link
+                href={`/programa/${currentExh.id}`}
+                className="w-full aspect-[4/3] md:aspect-[16/10] bg-black/[0.02] p-4 md:p-8 mb-6 overflow-hidden relative"
+              >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={currentExh.image}
                   alt={currentExh.title}
-                  className="w-full h-full object-contain drop-shadow-sm"
+                  className="w-full h-full object-cover mix-blend-multiply grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-[2s] ease-out shadow-lg"
                 />
-              </Link>
-            </div>
-            <div className="flex flex-col justify-center font-sans">
-              <Link href={`/programa/${currentExh.id}`} className="group">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase tracking-tight mb-2 text-foreground group-hover:text-accent transition-colors">
-                  &lsquo;{currentExh.title}&rsquo;
-                </h2>
-                <p className="text-2xl md:text-3xl font-medium text-foreground mb-12">
-                  de {currentExh.artists}
-                </p>
-                <div className="flex flex-col gap-2 text-lg md:text-xl text-foreground">
-                  <p className="font-medium">{currentExh.date}</p>
-                  <p className="font-bold uppercase tracking-wide">MIÉ — SÁB 12—20H</p>
+                <div className="absolute top-6 left-6 md:top-10 md:left-10 bg-background/90 backdrop-blur px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
+                  {locale === "es" ? "En Sala" : "On view"}
                 </div>
               </Link>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+              <div className="flex justify-between items-start">
+                <div className="flex flex-col">
+                  <h2 className="font-serif text-4xl md:text-6xl tracking-tighter uppercase group-hover:text-accent transition-colors mb-2">
+                    {currentExh.title}
+                  </h2>
+                  <span className="font-sans text-sm tracking-widest uppercase font-semibold text-foreground/70">
+                    {currentExh.artists}
+                  </span>
+                </div>
+                <ArrowUpRight
+                  size={32}
+                  strokeWidth={1}
+                  className="text-foreground/30 group-hover:text-accent transition-colors hidden md:block"
+                />
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="md:col-span-4 flex flex-col gap-12 md:gap-16 mt-16 md:mt-0">
+            {upcomingExh ? (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.4, ease: easeOut }}
+                className="group"
+              >
+                <Link href={`/programa/${upcomingExh.id}`} className="flex flex-col">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-4 border-b border-foreground/10 pb-2">
+                    {locale === "es" ? "Próxima Inauguración" : "Next opening"}
+                  </div>
+                  <div className="w-full aspect-square bg-black/[0.02] p-4 mb-4 overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={upcomingExh.image}
+                      alt={upcomingExh.title}
+                      className="w-full h-full object-cover mix-blend-multiply grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-[1.05] transition-all duration-[2s] ease-out shadow-md"
+                    />
+                  </div>
+                  <h3 className="font-serif text-3xl uppercase tracking-tighter group-hover:text-accent transition-colors">
+                    {upcomingExh.title}
+                  </h3>
+                  <span className="font-sans text-[10px] uppercase tracking-widest font-semibold text-foreground/60 mt-1">
+                    {upcomingExh.artists}
+                  </span>
+                </Link>
+              </motion.div>
+            ) : null}
+
+            {focusArtist ? (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.6, ease: easeOut }}
+                className="group"
+              >
+                <Link
+                  href={`/artistas/${focusArtist.slug}`}
+                  className="flex items-center gap-6 border border-foreground/10 p-4 hover:border-accent transition-colors"
+                >
+                  <div className="w-20 h-20 bg-muted overflow-hidden flex-shrink-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={focusArtist.images[0]?.src}
+                      alt={focusArtist.name}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s]"
+                    />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent mb-1">
+                      {locale === "es" ? "Focus Artista" : "Artist focus"}
+                    </span>
+                    <h3 className="font-serif text-2xl uppercase tracking-tighter">{focusArtist.name}</h3>
+                  </div>
+                  <ArrowRight size={16} className="ml-auto text-foreground/30 group-hover:text-accent transition-colors" />
+                </Link>
+              </motion.div>
+            ) : null}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 md:py-32 bg-foreground text-background">
+        <div className="px-6 md:px-12 max-w-[1600px] mx-auto w-full">
+          <div className="flex justify-between items-end mb-16 border-b border-background/20 pb-6">
+            <h2 className="font-serif text-4xl tracking-tight uppercase">
+              {locale === "es" ? "Artistas Representados" : "Represented artists"}
+            </h2>
+            <Link
+              href="/artistas"
+              className="font-mono text-[10px] uppercase tracking-[0.2em] text-background/50 hover:text-background transition-colors flex items-center gap-2"
+            >
+              {locale === "es" ? "Ver Roster Completo" : "Full roster"} <ArrowRight size={12} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {featuredArtists.map((artist, idx) => (
+              <motion.div
+                key={artist.slug}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, delay: idx * 0.1, ease: easeOut }}
+              >
+                <Link href={`/artistas/${artist.slug}`} className="group flex flex-col">
+                  <div className="w-full aspect-[3/4] bg-background/5 overflow-hidden mb-6 relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={artist.images[0]?.src}
+                      alt={artist.name}
+                      className="w-full h-full object-cover grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-[1.5s] ease-out"
+                    />
+                  </div>
+                  <h3 className="font-serif text-3xl uppercase tracking-tighter group-hover:text-accent transition-colors">
+                    {artist.name}
+                  </h3>
+                  <span className="font-sans text-[10px] uppercase tracking-widest font-semibold text-background/50 mt-1">
+                    {artist.country}
+                  </span>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-32 md:py-40 px-6 md:px-12 max-w-[1600px] mx-auto w-full">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8">
+          <div className="md:col-span-4 flex flex-col pr-0 md:pr-12">
+            <h2 className="font-serif text-5xl md:text-6xl tracking-tighter uppercase mb-6">Journal</h2>
+            <p className="font-sans text-sm text-foreground/70 leading-relaxed mb-12">
+              {locale === "es"
+                ? "Publicaciones, notas de prensa, adquisiciones institucionales y premios de los artistas representados por la galería."
+                : "Publications, press notes, institutional acquisitions and prizes of the artists represented by the gallery."}
+            </p>
+            <Link href="/noticias" className="group inline-flex items-center gap-4 text-foreground hover:text-accent transition-colors w-fit">
+              <span className="font-sans text-xs uppercase tracking-[0.15em] font-semibold">
+                {locale === "es" ? "Leer todas las entradas" : "Read all entries"}
+              </span>
+              <span className="h-px w-8 bg-foreground/20 group-hover:bg-accent transition-colors duration-500" />
+            </Link>
+          </div>
+
+          <div className="md:col-span-8 flex flex-col border-t border-foreground/10">
+            {newsItems.map((item) => (
+              <Link
+                href={`/noticias/${item.id}`}
+                key={item.id}
+                className="group flex flex-col md:flex-row md:items-baseline py-8 border-b border-foreground/10 hover:border-accent transition-colors duration-300"
+              >
+                <div className="w-48 flex-shrink-0 mb-4 md:mb-0 flex flex-col gap-2">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{item.date}</span>
+                  <span className="font-sans text-[10px] uppercase tracking-widest font-semibold text-accent">
+                    {locale === "es" ? item.category : item.categoryEn}
+                  </span>
+                </div>
+                <div className="flex-grow">
+                  <h3 className="font-serif text-2xl md:text-3xl tracking-tight text-foreground/90 group-hover:text-accent group-hover:italic transition-all duration-300 leading-snug pr-4">
+                    {locale === "es" ? item.title : item.titleEn}
+                  </h3>
+                </div>
+                <div className="hidden md:block ml-8 text-accent opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                  <ArrowUpRight size={20} strokeWidth={1.5} />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
