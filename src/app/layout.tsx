@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import { Footer, Header } from "@/components/Header";
+import { Main } from "@/components/Main";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
 
@@ -36,7 +37,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col antialiased bg-background text-foreground font-sans">
         <Providers>
           <Header />
-          <main className="flex-grow relative z-10 pt-24 md:pt-32">{children}</main>
+          <Main>{children}</Main>
           <Footer />
         </Providers>
       </body>
