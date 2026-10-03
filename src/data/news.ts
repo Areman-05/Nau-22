@@ -1,0 +1,276 @@
+import type { NewsItem } from "./types";
+import { paint } from "./media";
+
+export const news: NewsItem[] = [
+  {
+    id: "n1",
+    date: "15 Nov, 2026",
+    category: "Premio",
+    categoryEn: "Award",
+    title: "Kaito Tanaka galardonado con el Premio Nacional de Artes Plásticas",
+    titleEn: "Kaito Tanaka awarded the National Prize for Plastic Arts",
+    excerpt:
+      "El jurado ha destacado su capacidad para materializar la fricción entre la memoria industrial y la era algorítmica. La ceremonia se celebra el mes que viene.",
+    excerptEn:
+      "The jury highlighted his capacity to materialise the friction between industrial memory and the algorithmic era.",
+    image: paint.paintClose,
+    quote: "El espacio deja de ser contenedor para convertirse en materia activa.",
+    quoteEn: "Space stops being a container and becomes active matter.",
+  },
+  {
+    id: "n2",
+    date: "02 Nov, 2026",
+    category: "Adquisición",
+    categoryEn: "Acquisition",
+    title: "El MACBA incorpora 'Somata I' a su colección permanente",
+    titleEn: "MACBA acquires ‘Somata I’ for its permanent collection",
+    excerpt:
+      "La pieza central de Geometrías Somáticas entra en los fondos del museo. Se queda en Barcelona.",
+    excerptEn: "The central piece of Geometrías Somáticas enters the museum’s holdings.",
+    image: paint.abstract,
+  },
+  {
+    id: "n3",
+    date: "28 Oct, 2026",
+    category: "Feria",
+    categoryEn: "Fair",
+    title: "Nau 22 en Art Basel 2027, sector Statements",
+    titleEn: "Nau 22 at Art Basel 2027, Statements",
+    excerpt:
+      "Solo project de Alma Ruiz: pintura de extrusión mineral, sin stand de feria convencional.",
+    excerptEn: "Alma Ruiz solo project: mineral extrusion painting, no conventional fair stand.",
+    image: paint.red,
+  },
+  {
+    id: "n4",
+    date: "18 Oct, 2026",
+    category: "Inauguración",
+    categoryEn: "Opening",
+    title: "Apertura de Fricción y Ruido en el anexo",
+    titleEn: "Opening of Fricción y Ruido in the annex",
+    excerpt:
+      "Colectivo 22@, Xavier Solé e Ismail Qasim comparten sala. Primera noche con cola en Pujades.",
+    excerptEn: "Colectivo 22@, Xavier Solé and Ismail Qasim share the room. First night with a queue on Pujades.",
+    image: paint.grit,
+  },
+  {
+    id: "n5",
+    date: "10 Oct, 2026",
+    category: "Publicación",
+    categoryEn: "Publication",
+    title: "Sale 'Ruina Industrial' volumen II",
+    titleEn: "‘Ruina Industrial’ volume II is out",
+    excerpt:
+      "Coedición con Revista Texturas. Ensayos sobre gentrificación y producción en el 22@.",
+    excerptEn: "Co-edition with Revista Texturas. Essays on gentrification and production in 22@.",
+    image: paint.codes,
+  },
+  {
+    id: "n6",
+    date: "12 Oct, 2026",
+    category: "Visita",
+    categoryEn: "Visit",
+    title: "Visita de curso BAU a Geometrías Somáticas",
+    titleEn: "BAU course visit to Geometrías Somáticas",
+    excerpt:
+      "Estudiantes de montaje recorren la sala con Tanaka. Sin mediación de feria: una hora y un texto corto.",
+    excerptEn: "Installation students walk the room with Tanaka. One hour and a short text.",
+    image: paint.dimension,
+  },
+  {
+    id: "n7",
+    date: "05 Oct, 2026",
+    category: "Noche de galerías",
+    categoryEn: "Gallery night",
+    title: "Nau 22 se suma a la Nit dels Museus del 22@",
+    titleEn: "Nau 22 joins the 22@ museum night",
+    excerpt:
+      "Horario extraordinario hasta las 23:00. Entrada libre. El sótano de Luz Sólida se llena.",
+    excerptEn: "Extended hours until 23:00. Free entry. The Luz Sólida basement fills up.",
+    image: paint.pour2,
+  },
+  {
+    id: "n8",
+    date: "22 Sep, 2026",
+    category: "Inauguración",
+    categoryEn: "Opening",
+    title: "Luz Sólida abre en el sótano",
+    titleEn: "Luz Sólida opens in the basement",
+    excerpt:
+      "Marc Vives estrena dos lienzos de gran formato. La sala baja queda a oscuras a propósito.",
+    excerptEn: "Marc Vives opens with two large canvases. The lower room stays dark on purpose.",
+    image: paint.canvas,
+  },
+  {
+    id: "n9",
+    date: "05 Sep, 2026",
+    category: "Institucional",
+    categoryEn: "Institutional",
+    title: "El archivo de Poblenou gana 200 m²",
+    titleEn: "The Poblenou archive gains 200 m²",
+    excerpt:
+      "Nuevo depósito para obra de gran formato. No es ampliación de salas: es conservación.",
+    excerptEn: "New storage for large-format work. Not more galleries: conservation.",
+    image: paint.uruk,
+  },
+  {
+    id: "n10",
+    date: "18 Ago, 2026",
+    category: "Residencia",
+    categoryEn: "Residency",
+    title: "Ismail Qasim cierra residencia en Hangar y vuelve a la nau",
+    titleEn: "Ismail Qasim ends his Hangar residency and returns to the warehouse",
+    excerpt:
+      "Tres meses de taller en Can Ricart. Los mapas de grúas se pintaron allí y se muestran aquí.",
+    excerptEn: "Three months in Can Ricart. The crane maps were painted there and shown here.",
+    image: paint.move,
+  },
+  {
+    id: "n11",
+    date: "12 Ago, 2026",
+    category: "Entrevista",
+    categoryEn: "Interview",
+    title: "Marc Vives habla de pintura inmaterial",
+    titleEn: "Marc Vives on immaterial painting",
+    excerpt:
+      "Capa, vapor y pigmento. El gesto se lee como muro, no como efecto de luz.",
+    excerptEn: "Layer, vapour and pigment. The gesture reads as wall, not as a light trick.",
+    image: paint.pour1,
+  },
+  {
+    id: "n12",
+    date: "28 Jul, 2026",
+    category: "Taller",
+    categoryEn: "Workshop",
+    title: "Taller de pigmento mineral con Alma Ruiz",
+    titleEn: "Mineral pigment workshop with Alma Ruiz",
+    excerpt:
+      "Doce plazas. Óxidos del litoral y lino. Lista de espera cerrada en 48 horas.",
+    excerptEn: "Twelve places. Coastal oxides and linen. Waitlist closed in 48 hours.",
+    image: paint.ochre,
+  },
+  {
+    id: "n13",
+    date: "04 Jul, 2026",
+    category: "Cierre",
+    categoryEn: "Closing",
+    title: "Última semana de Artefactos Post-Digitales",
+    titleEn: "Last week of Artefactos Post-Digitales",
+    excerpt:
+      "Elena Rostova cierra el ciclo de julio. Hoja de sala agotada; se reimprime el viernes.",
+    excerptEn: "Elena Rostova closes the July cycle. Gallery notes sold out; reprint on Friday.",
+    image: paint.drip,
+  },
+  {
+    id: "n14",
+    date: "16 Jun, 2026",
+    category: "Prensa",
+    categoryEn: "Press",
+    title: "El País dedica un reportaje a las naves del Poblenou",
+    titleEn: "El País runs a feature on Poblenou warehouses",
+    excerpt:
+      "Nau 22 aparece junto a Hangar y Fabra i Coats. El foco es el alquiler, no el cubo blanco.",
+    excerptEn: "Nau 22 appears next to Hangar and Fabra i Coats. The focus is rent, not the white cube.",
+    image: paint.neo,
+  },
+  {
+    id: "n15",
+    date: "02 Jun, 2026",
+    category: "Adquisición",
+    categoryEn: "Acquisition",
+    title: "Colección privada suiza adquiere 'Capa ocre' de Alma Ruiz",
+    titleEn: "Swiss private collection acquires Alma Ruiz’s ‘Capa ocre’",
+    excerpt:
+      "La pieza de 2025 sale de inventario. Quedan dos de la serie en depósito.",
+    excerptEn: "The 2025 piece leaves inventory. Two from the series remain in storage.",
+    image: paint.sand,
+  },
+  {
+    id: "n16",
+    date: "20 May, 2026",
+    category: "Conversación",
+    categoryEn: "Talk",
+    title: "Júlia Spínola y Sara Lund hablan de urdimbre",
+    titleEn: "Júlia Spínola and Sara Lund on warp",
+    excerpt:
+      "Texto de sala en voz alta. Sin mesa redonda: dos voces y la obra delante.",
+    excerptEn: "Wall text read aloud. No panel: two voices and the work in front.",
+    image: paint.greenY,
+  },
+  {
+    id: "n17",
+    date: "08 Abr, 2026",
+    category: "Inauguración",
+    categoryEn: "Opening",
+    title: "Dispositivos, de Studio Manta, abre en abril",
+    titleEn: "Studio Manta’s Dispositivos opens in April",
+    excerpt:
+      "Cuatro piezas. El colectivo no firma individualmente. Primera muestra en Nau 22.",
+    excerptEn: "Four works. The collective does not sign individually. First show at Nau 22.",
+    image: paint.squares,
+  },
+  {
+    id: "n18",
+    date: "19 Mar, 2026",
+    category: "Feria",
+    categoryEn: "Fair",
+    title: "Nau 22 en ARCO Madrid, stand 7C12",
+    titleEn: "Nau 22 at ARCO Madrid, booth 7C12",
+    excerpt:
+      "Carmen Soto y Xavier Solé. Sin edición comercial: solo obra única.",
+    excerptEn: "Carmen Soto and Xavier Solé. No commercial edition: unique works only.",
+    image: paint.bw1,
+  },
+  {
+    id: "n19",
+    date: "11 Feb, 2026",
+    category: "Publicación",
+    categoryEn: "Publication",
+    title: "Texturas nº 28: monográfico sobre sonido en sala",
+    titleEn: "Texturas no. 28: special on sound in the gallery",
+    excerpt:
+      "Colectivo 22@ escribe el texto central. Los ejemplares están en la mesa de entrada.",
+    excerptEn: "Colectivo 22@ writes the lead text. Copies sit on the entrance table.",
+    image: paint.britto,
+  },
+  {
+    id: "n20",
+    date: "24 Nov, 2025",
+    category: "Cierre",
+    categoryEn: "Closing",
+    title: "Cierra El Espacio Opresivo de Carmen Soto",
+    titleEn: "Carmen Soto’s El Espacio Opresivo closes",
+    excerpt:
+      "Último fin de semana. La serie de umbrales se desmonta el lunes.",
+    excerptEn: "Last weekend. The threshold series comes down on Monday.",
+    image: paint.shadow,
+  },
+  {
+    id: "n21",
+    date: "03 Oct, 2025",
+    category: "Residencia",
+    categoryEn: "Residency",
+    title: "Leonid Belyaev entra en residencia de otoño",
+    titleEn: "Leonid Belyaev starts the autumn residency",
+    excerpt:
+      "Dos meses en el anexo. Trabaja ceniza y óxido. Abierto a visita los jueves.",
+    excerptEn: "Two months in the annex. Ash and oxide. Open for visits on Thursdays.",
+    image: paint.ember,
+  },
+  {
+    id: "n22",
+    date: "14 Sep, 2025",
+    category: "Visita",
+    categoryEn: "Visit",
+    title: "Grupo del MACBA Independiente visita la nau",
+    titleEn: "MACBA Independent group visits the warehouse",
+    excerpt:
+      "Doce personas. Sin logo en la puerta. Una hora, un texto, café en Pujades.",
+    excerptEn: "Twelve people. No logo on the door. One hour, one text, coffee on Pujades.",
+    image: paint.field,
+  },
+];
+
+export function getNews(id: string): NewsItem | undefined {
+  return news.find((item) => item.id === id);
+}
