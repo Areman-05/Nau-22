@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { historyIntro } from "@/data/proyecto";
 import { useLocale } from "@/context/LocaleContext";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
@@ -53,6 +54,29 @@ export default function ProyectoPage() {
         <div className="absolute inset-0 bg-black/10 pointer-events-none" />
         <div className="absolute bottom-6 right-6 md:bottom-10 md:right-12 font-mono text-[10px] uppercase tracking-[0.2em] text-white/80 mix-blend-difference">
           {locale === "es" ? "Nave · Pujades 102 · 22@" : "Warehouse · Pujades 102 · 22@"}
+        </div>
+      </section>
+
+      <section className="px-6 md:px-12 max-w-[1600px] mx-auto w-full">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-8 mb-16 md:mb-24">
+          <div className="md:col-span-3">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground sticky top-40">
+              {locale === "es" ? "Historia" : "History"}
+            </p>
+          </div>
+          <div className="md:col-span-8 md:col-start-5">
+            <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl uppercase tracking-tighter leading-[0.9] mb-8">
+              {locale === "es" ? historyIntro.title.es : historyIntro.title.en}
+            </h2>
+            <div className="font-sans text-base md:text-lg text-foreground/60 max-w-2xl leading-relaxed flex flex-col gap-6">
+              {(locale === "es"
+                ? historyIntro.paragraphs.es
+                : historyIntro.paragraphs.en
+              ).map((p) => (
+                <p key={p.slice(0, 48)}>{p}</p>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </div>
