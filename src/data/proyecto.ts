@@ -48,7 +48,9 @@ export const historyIntro = {
   },
 };
 
-/** Actual → antiguo. Longitudes mixtas a propósito (1 / 2 / 3 párrafos). */
+/** Actual → antiguo. Longitudes mixtas a propósito (1 / 2 / 3 párrafos).
+ * Manifiesto vive en /proyecto/manifiesto; la cronología en /proyecto.
+ */
 export const milestones: Milestone[] = [
 {
     year: "2026",
