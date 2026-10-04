@@ -142,6 +142,71 @@ export default function ProyectoPage() {
         </div>
       </section>
 
+      <section className="px-6 md:px-12 max-w-[1600px] mx-auto w-full">
+        <div className="border-t border-foreground/10 pt-16 md:pt-20">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16 md:mb-20">
+            <div className="md:col-span-3">
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground sticky top-40">
+                {locale === "es" ? "Visitar" : "Visit"}
+              </p>
+            </div>
+            <div className="md:col-span-8 md:col-start-5">
+              <h2 className="font-serif text-4xl md:text-6xl uppercase tracking-tighter leading-[0.9] mb-6">
+                {locale === "es" ? "Cómo llegar a la nau" : "How to reach the warehouse"}
+              </h2>
+              <p className="font-sans text-base md:text-lg text-foreground/55 max-w-xl leading-relaxed">
+                {locale === "es"
+                  ? "Entrada libre en horario de salas. Sin cita para ver la exposición. Para prensa, préstamos o consulta de obra: escribe."
+                  : "Free entry during gallery hours. No appointment to see the exhibition. For press, loans or work enquiries: write."}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
+            <div className="md:col-span-4 md:col-start-4 flex flex-col gap-4">
+              <h3 className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground border-b border-foreground/10 pb-4">
+                {locale === "es" ? "Dirección" : "Address"}
+              </h3>
+              <p className="font-sans text-xl md:text-2xl leading-snug text-foreground">
+                {gallery.addressLine}
+                <br />
+                {gallery.postalCode} {gallery.neighborhood}
+                <br />
+                {gallery.city}
+              </p>
+              <p className="font-sans text-sm text-foreground/45 leading-relaxed mt-2">
+                {locale === "es"
+                  ? "Metro L4 · Poblenou. Entrada por Pujades."
+                  : "Metro L4 · Poblenou. Entrance on Pujades."}
+              </p>
+            </div>
+
+            <div className="md:col-span-4 md:col-start-9 flex flex-col gap-4">
+              <h3 className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground border-b border-foreground/10 pb-4">
+                {locale === "es" ? "Horario" : "Hours"}
+              </h3>
+              <div className="font-sans text-lg md:text-xl flex flex-col gap-4 text-foreground">
+                <div className="flex justify-between gap-6 border-b border-foreground/5 pb-3">
+                  <span>{locale === "es" ? "Mié — Sáb" : "Wed — Sat"}</span>
+                  <span className="text-foreground/60">12:00 — 20:00</span>
+                </div>
+                <div className="flex justify-between gap-6 text-foreground/40">
+                  <span>{locale === "es" ? "Dom — Mar" : "Sun — Tue"}</span>
+                  <span>{locale === "es" ? "Cerrado" : "Closed"}</span>
+                </div>
+              </div>
+              <a
+                href={`mailto:${gallery.email}`}
+                className="group mt-6 font-sans text-lg md:text-xl text-foreground hover:text-accent transition-colors duration-500 flex justify-between items-center border-t border-foreground/10 pt-6"
+              >
+                <span>{gallery.email}</span>
+                <span className="font-mono text-[10px] uppercase tracking-widest opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
+                  {locale === "es" ? "Escribir ↗" : "Write ↗"}
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   );
