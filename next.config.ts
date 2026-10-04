@@ -25,8 +25,9 @@ const nextConfig: NextConfig = {
       { source: "/obras/:slug", destination: "/programa", permanent: false },
       { source: "/carrito", destination: "/", permanent: false },
       { source: "/checkout", destination: "/", permanent: false },
-      { source: "/visitar", destination: "/info", permanent: false },
-      { source: "/la-nau", destination: "/info", permanent: false },
+      { source: "/visitar", destination: "/proyecto", permanent: false },
+      { source: "/la-nau", destination: "/proyecto", permanent: false },
+      { source: "/info", destination: "/proyecto", permanent: false },
     ];
   },
 };
