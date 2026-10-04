@@ -91,4 +91,45 @@ export const milestones: Milestone[] = [
       },
     ],
   },
+{
+    year: "2025",
+    items: [
+      {
+        title: "Temporada densa sin ampliar equipo",
+        titleEn: "Dense season, same floor team",
+        paragraphs: [
+          "El programa crece en exigencia, no en headcount. Menos inauguraciones ruidosas, más tiempo de montaje, textos de sala más largos. Ampliar personal habría forzado un modelo de galería de calle; Nau 22 elige densificar contenido y proteger el silencio del edificio entre exposiciones.",
+          "Al cierre, la agenda de visitas profesionales supera cualquier temporada anterior. El barrio sigue entrando en horario público; el circuito llega sin convertir la nave en showroom.",
+        ],
+        paragraphsEn: [
+          "The programme grows in demand, not headcount. Fewer noisy openings, more install time, longer wall texts. Expanding staff would have forced a street-gallery model; Nau 22 densifies content and protects the building’s silence between shows.",
+          "By year end the professional visit diary surpasses any previous season. The neighbourhood still enters in public hours; the circuit arrives without turning the warehouse into a showroom.",
+        ],
+      },
+      {
+        title: "Cierre de series históricas",
+        titleEn: "Closing historical series",
+        paragraphs: [
+          "Se cierran dos series largas del roster — pintura mineral e instalación textil — con una exposición de balance, no con una retirada. Liberar muro y patio para lo que venía después.",
+        ],
+        paragraphsEn: [
+          "Two long roster series close — mineral painting and textile installation — with a balance show, not a withdrawal. Freeing wall and yard for what came next.",
+        ],
+      },
+      {
+        title: "Journal como archivo vivo",
+        titleEn: "Journal as living archive",
+        paragraphs: [
+          "El Journal supera las veinte entradas públicas y deja de parecer un blog de galería. Se publica con la misma seriedad que un texto de sala: notas de montaje, ensayos cortos sobre el 22@, crónicas de préstamo, conversaciones sin formato promoción.",
+          "No hay lógica de oferta ni CTA de compra. Quien lo lee entiende el criterio aunque no haya pisado Pujades. En 2025 ya se cita en textos universitarios y en dossiers de préstamo: deja de ser accesorio y pasa a ser prueba escrita del proyecto.",
+          "Esa densidad convierte la web en extensión del edificio. El rastro público del programa ya no depende solo del rumor de inauguraciones.",
+        ],
+        paragraphsEn: [
+          "The Journal passes twenty public entries and stops looking like a gallery blog. It publishes with the same seriousness as a wall text: install notes, short essays on 22@, loan chronicles, conversations without promo format.",
+          "No sales logic, no buy CTA. Whoever reads it understands the criterion without having set foot in Pujades. In 2025 it is already cited in university texts and loan dossiers: it stops being accessory and becomes written proof of the project.",
+          "That density turns the site into an extension of the building. The programme’s public trace no longer depends only on opening-night rumour.",
+        ],
+      },
+    ],
+  },
 ];
