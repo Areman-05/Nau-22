@@ -183,4 +183,84 @@ export const milestones: Milestone[] = [
       },
     ],
   },
+{
+    year: "2023",
+    items: [
+      {
+        title: "Cuatro individuales, dos colectivas",
+        titleEn: "Four solos, two group shows",
+        paragraphs: [
+          "Primer año con ritmo estable: cuatro individuales y dos colectivas sin cancelaciones. Nau 22 deja de leerse como pop-up y pasa a citarse como espacio de referencia del 22@.",
+          "Las colectivas no son relleno — sonido y demolición; pintura y cartografía —. El público local empieza a volver con el ritmo de la temporada, no solo el día de inauguración.",
+        ],
+        paragraphsEn: [
+          "First year with a steady rhythm: four solos and two group shows without cancellations. Nau 22 stops reading as a pop-up and starts being cited as a 22@ reference space.",
+          "Group shows are not filler — sound and demolition; painting and cartography —. Local audiences begin returning with the season’s rhythm, not only on opening day.",
+        ],
+      },
+      {
+        title: "Protocolo de préstamo",
+        titleEn: "Loan protocol",
+        paragraphs: [
+          "Plantillas de contrato, crating, luz, humedad, plazos. Protege al artista y evita que la galería se convierta en almacén ajeno.",
+        ],
+        paragraphsEn: [
+          "Contract templates, crating, light, humidity, deadlines. Protects the artist and keeps the gallery from becoming someone else’s storeroom.",
+        ],
+      },
+      {
+        title: "Entrada en colecciones",
+        titleEn: "Collection acquisitions",
+        paragraphs: [
+          "Piezas de sala entran en colecciones públicas y privadas sin feria intermedia. El trato se cierra en Pujades: obra en contexto, conversación con el artista, papeles claros.",
+          "Confirma que el modelo sin e-commerce no impide circulación seria. La obra se mueve porque se ha visto bien montada.",
+        ],
+        paragraphsEn: [
+          "Floor works enter public and private collections without an intermediary fair. Deals close at Pujades: work in context, talk with the artist, clear paperwork.",
+          "Confirms that a model without e-commerce does not block serious circulation. The work moves because it was seen well installed.",
+        ],
+      },
+    ],
+  },
+{
+    year: "2022",
+    items: [
+      {
+        title: "Segunda sala y patio",
+        titleEn: "Second room and yard",
+        paragraphs: [
+          "Reforma parcial: segunda sala con forjado usable y patio de descarga como instalación exterior controlada. Obra mínima — no se diseña un look de galería — pero cambia la capacidad del programa.",
+          "A partir de aquí pueden convivir una individual intensa y una pieza de patio. El eco se gestiona con puertas, no con paneles. El hormigón sigue a la vista.",
+          "El edificio deja de ser un solo gesto y pasa a instrumento con registros: sala principal, sala menor, patio. Arquitectura de uso tan curatorial como constructiva.",
+        ],
+        paragraphsEn: [
+          "Partial renovation: a second room with a usable floor plate and the loading yard as controlled outdoor installation. Minimal works — no designed gallery look — but the programme’s capacity changes.",
+          "From here an intense solo and a yard piece can coexist. Echo is managed with doors, not panels. Concrete stays visible.",
+          "The building stops being a single gesture and becomes an instrument with registers: main room, smaller room, yard. Architecture of use as curatorial as it is constructive.",
+        ],
+      },
+      {
+        title: "Roster internacional",
+        titleEn: "International roster",
+        paragraphs: [
+          "Artistas de São Paulo, Járkov y Lyon. Cada incorporación se prueba primero en Pujades; el criterio no cambia, cambia la geografía.",
+        ],
+        paragraphsEn: [
+          "Artists from São Paulo, Kharkiv and Lyon. Each addition is tested first in Pujades; the criterion does not change, the geography does.",
+        ],
+      },
+      {
+        title: "Primera colaboración museística",
+        titleEn: "First museum collaboration",
+        paragraphs: [
+          "Préstamo corto y visita de estudiantes con un museo universitario en Barcelona. Ellos traen marco académico; nosotros, el edificio. De esa visita salen dos textos que alimentan el Journal.",
+          "Queda abierto un canal que años después sostiene préstamos más largos. La institución entra sin que la galería se disfrace de museo.",
+        ],
+        paragraphsEn: [
+          "A short loan and student visit with a university museum in Barcelona. They bring an academic frame; we bring the building. Two texts from that visit feed the Journal.",
+          "A channel opens that later sustains longer loans. The institution enters without the gallery dressing up as a museum.",
+        ],
+      },
+    ],
+  },
 ];
