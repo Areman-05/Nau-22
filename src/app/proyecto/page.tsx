@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { gallery } from "@/data/gallery";
 import { historyIntro, milestones } from "@/data/proyecto";
@@ -37,6 +38,21 @@ export default function ProyectoPage() {
         >
           {locale === "es" ? "Proyecto" : "Project"}
         </motion.h1>
+        <motion.div
+          initial={ready ? { opacity: 0, y: 12 } : false}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.15, ease: easeOut }}
+          className="mt-8 md:mt-10"
+        >
+          <Link
+            href="/proyecto/manifiesto"
+            className="group inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-accent hover:text-foreground transition-colors duration-500"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-accent group-hover:bg-foreground transition-colors duration-500" />
+            {locale === "es" ? "Leer manifiesto" : "Read manifesto"}
+            <span className="opacity-60 group-hover:translate-x-1 transition-transform duration-500">→</span>
+          </Link>
+        </motion.div>
       </section>
 
       <section
