@@ -26,6 +26,14 @@ export default function ProyectoPage() {
     setReady(true);
   }, []);
 
+  useEffect(() => {
+    if (window.location.hash !== "#visitar") return;
+    const el = document.getElementById("visitar");
+    if (!el) return;
+    requestAnimationFrame(() => {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, []);
 
   return (
     <div className="w-full bg-background min-h-screen flex flex-col pb-40">
