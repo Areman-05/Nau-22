@@ -132,4 +132,55 @@ export const milestones: Milestone[] = [
       },
     ],
   },
+{
+    year: "2024",
+    items: [
+      {
+        title: "Primera feria europea por invitación",
+        titleEn: "First European fair by invitation",
+        paragraphs: [
+          "Primera presencia en feria europea bajo invitación: pocas piezas, mucho aire, el mismo criterio que en Pujades. No se firma stand anual; se acepta una vez y se evalúa después.",
+          "Tipografía de cartela idéntica a la de la nave, sin logo hinchado ni luz de joyería. El retorno a Barcelona confirma la regla: el circuito sirve si la nave sigue siendo el centro. Si la feria obliga a cambiar el programa, no se repite.",
+          "Varios comisarios que conocían Nau 22 solo de oídas entran ahí por primera vez. La feria funciona como puerta, no como destino.",
+        ],
+        paragraphsEn: [
+          "First presence at a European fair by invitation: few pieces, much air, the same criterion as in Pujades. No annual booth; accepted once and evaluated after.",
+          "Caption typography identical to the warehouse, no swollen logo or jewellery lighting. The return to Barcelona confirms the rule: the circuit serves if the warehouse remains the centre. If the fair forces a programme change, it is not repeated.",
+          "Several curators who knew Nau 22 only by hearsay enter there for the first time. The fair works as a door, not a destination.",
+        ],
+      },
+      {
+        title: "Residencia Besòs",
+        titleEn: "Besòs residency",
+        paragraphs: [
+          "Tres semanas en horno compartido del Besòs; las piezas vuelven a ras de suelo, sin peana, a la sombra del patio.",
+        ],
+        paragraphsEn: [
+          "Three weeks in a shared kiln in Besòs; the pieces return at floor level, without plinths, in the yard’s shadow.",
+        ],
+      },
+      {
+        title: "Ensayo textil del Poblenou",
+        titleEn: "Poblenou textile essay",
+        paragraphs: [
+          "Primer ensayo largo de la galería: telares, naves, cierre industrial y su eco en la programación actual — hilo, cobre, fibra. Se edita en pliego corto para sala y en versión ampliada para el Journal.",
+          "No es catálogo de venta: es herramienta de lectura para visitantes e instituciones. Con él, Nau 22 asume voz propia más allá de la cartela.",
+        ],
+        paragraphsEn: [
+          "The gallery’s first long essay: looms, warehouses, industrial closure and their echo in the current programme — thread, copper, fibre. Edited as a short floor booklet and an expanded Journal version.",
+          "Not a sales catalogue: a reading tool for visitors and institutions. With it, Nau 22 assumes a voice beyond the caption.",
+        ],
+      },
+      {
+        title: "Archivo de sala +80",
+        titleEn: "Floor archive 80+",
+        paragraphs: [
+          "Más de ochenta fichas documentadas en Pujades: foto, medidas, materiales, historial, estado. El visitante no ve el archivo; ve cartelas precisas y respuestas rápidas a instituciones.",
+        ],
+        paragraphsEn: [
+          "More than eighty records documented at Pujades: photo, measurements, materials, history, condition. The visitor does not see the archive; they see precise captions and fast answers to institutions.",
+        ],
+      },
+    ],
+  },
 ];
