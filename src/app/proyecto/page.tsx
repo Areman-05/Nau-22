@@ -165,7 +165,10 @@ export default function ProyectoPage() {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 max-w-[1600px] mx-auto w-full">
+      <section
+        id="visitar"
+        className="px-6 md:px-12 max-w-[1600px] mx-auto w-full scroll-mt-28 md:scroll-mt-36"
+      >
         <div className="border-t border-foreground/10 pt-16 md:pt-20">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16 md:mb-20">
             <div className="md:col-span-3">
