@@ -28,8 +28,10 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     setIsMenuOpen(false);
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
   }, [pathname]);
 
   return (
@@ -126,7 +128,8 @@ export function Header() {
                 </span>
               </a>
               <Link
-                href="/proyecto"
+                href="/proyecto#visitar"
+                onClick={() => setIsMenuOpen(false)}
                 className="hover:text-foreground transition-colors flex items-center justify-between group"
               >
                 <span>{locale === "es" ? "Visita y Horarios" : "Visit and hours"}</span>
