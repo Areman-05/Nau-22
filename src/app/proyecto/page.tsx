@@ -94,6 +94,13 @@ export default function ProyectoPage() {
                 <p key={p.slice(0, 48)}>{p}</p>
               ))}
             </div>
+            <Link
+              href="/proyecto/manifiesto"
+              className="group mt-10 inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-accent hover:text-foreground transition-colors duration-500"
+            >
+              {locale === "es" ? "Leer manifiesto" : "Read manifesto"}
+              <span className="opacity-60 group-hover:translate-x-1 transition-transform duration-500">→</span>
+            </Link>
           </div>
         </div>
 
