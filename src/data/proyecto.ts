@@ -263,4 +263,166 @@ export const milestones: Milestone[] = [
       },
     ],
   },
+{
+    year: "2021",
+    items: [
+      {
+        title: "Consolidación del roster",
+        titleEn: "Roster consolidation",
+        paragraphs: [
+          "Criterio de representación por escrito: gesto urbano, instalación y archivo ligados a territorios en transformación. Deja de bastar “nos gusta”; hay que argumentar por qué una obra pertenece a Pujades 102.",
+          "El roster se estrecha y se vuelve legible. Años después esa brújula sigue vigente porque se nombró a tiempo.",
+        ],
+        paragraphsEn: [
+          "Representation criterion in writing: urban gesture, installation and archive tied to territories in transformation. “We like it” is no longer enough; one must argue why a work belongs at Pujades 102.",
+          "The roster narrows and becomes legible. Years later that compass still holds because it was named in time.",
+        ],
+      },
+      {
+        title: "Primer pliego de artista",
+        titleEn: "First artist booklet",
+        paragraphs: [
+          "Tirada corta, tipografía de cartela, sin ISBN de vanidad. El primer objeto impreso con la misma voz seca que el edificio.",
+        ],
+        paragraphsEn: [
+          "Short run, caption typography, no vanity ISBN. The first printed object with the same dry voice as the building.",
+        ],
+      },
+      {
+        title: "Nace el Journal",
+        titleEn: "Journal launches",
+        paragraphs: [
+          "Memoria pública del programa: notas de montaje y textos cortos sobre el 22@. Regla desde el día uno: nada de newsletter de oferta.",
+          "En un año de presión digital, Nau 22 elige archivo abierto. Sin ese rastro, la historia posterior sería solo rumor de inauguraciones.",
+        ],
+        paragraphsEn: [
+          "Public memory of the programme: install notes and short texts on 22@. Rule from day one: no sales newsletter.",
+          "In a year of digital pressure, Nau 22 chooses an open archive. Without that trace, later history would be only opening-night rumour.",
+        ],
+      },
+    ],
+  },
+{
+    year: "2020",
+    items: [
+      {
+        title: "Abrir en silencio",
+        titleEn: "Opening in silence",
+        paragraphs: [
+          "La pandemia corta inauguraciones. Nau 22 responde con visitas de a uno o dos, sin eventos ni directo forzado. La sala permanece como lugar físico, no como escaparate mudado a Stories.",
+          "Cuesta visitas y métricas. Gana la certeza de que el proyecto depende del cuerpo en el edificio: eco vacío, obra sin cola ni copa.",
+          "Después se vuelve mito fundacional. En el momento fue solo obstinación: no cerrar la nau ni convertirla en tienda online.",
+        ],
+        paragraphsEn: [
+          "The pandemic cuts openings. Nau 22 answers with visits for one or two, without events or forced livestreams. The room stays a physical place, not a shop window moved to Stories.",
+          "It costs visits and metrics. It gains certainty that the project depends on the body in the building: empty echo, work without a queue or a drink.",
+          "Later it becomes founding myth. At the time it was only stubbornness: not closing the warehouse or turning it into an online shop.",
+        ],
+      },
+      {
+        title: "Debut Colectivo 22@",
+        titleEn: "Colectivo 22@ debut",
+        paragraphs: [
+          "Grúas, demoliciones y ventilaciones del barrio convertidas en ambiente que ocupa la sala como otra máquina. El eco deja de ser defecto y pasa a ser material.",
+          "El colectivo se queda en el roster y abre la puerta a prácticas no objetuales sin abandonar la pintura que vendrá después.",
+        ],
+        paragraphsEn: [
+          "Cranes, demolitions and neighbourhood ventilation turned into an ambient field that occupies the room like another machine. Echo stops being a flaw and becomes material.",
+          "The collective stays on the roster and opens the door to non-object practices without abandoning the painting that will come later.",
+        ],
+      },
+      {
+        title: "Sin comercio en sala",
+        titleEn: "No floor commerce",
+        paragraphs: [
+          "Decisión escrita: no vender en sala, no e-commerce, no pivotar a tienda. La consulta existe; el carrito, no.",
+        ],
+        paragraphsEn: [
+          "A written decision: no floor sales, no e-commerce, no pivot into a shop. Enquiry exists; the cart does not.",
+        ],
+      },
+    ],
+  },
+{
+    year: "2019",
+    items: [
+      {
+        title: "Contrato Pujades 102",
+        titleEn: "Pujades 102 lease",
+        paragraphs: [
+          "Se firma tras meses de visitas con linterna. El edificio está duro — polvo, instalaciones dudosas, luz irregular — y justo por eso se elige.",
+          "Obra mínima: limpiar, cablear, pilares a la vista. El presupuesto va a lo que permite montar, no a embellecer para foto de inmobiliaria. Con la llave, Nau 22 pasa de conversación a dirección.",
+        ],
+        paragraphsEn: [
+          "Signed after months of torch-lit visits. The building is hard — dust, dubious wiring, uneven light — and that is exactly why it is chosen.",
+          "Minimal works: clean, wire, pillars visible. Budget goes to what allows installation, not estate-agent polish. With the key, Nau 22 moves from conversation to address.",
+        ],
+      },
+      {
+        title: "Nace el nombre Nau 22",
+        titleEn: "The Nau 22 name",
+        paragraphs: [
+          "“Nau” por el edificio, “22” por el distrito. Sin claim ni tipografía de agencia. Si hace falta eslogan, el edificio no basta.",
+        ],
+        paragraphsEn: [
+          "“Nau” for the building, “22” for the district. No claim, no agency typeface. If a slogan is needed, the building is not enough.",
+        ],
+      },
+      {
+        title: "Exposición piloto",
+        titleEn: "Pilot exhibition",
+        paragraphs: [
+          "Tres artistas locales y una noche abierta al barrio. El montaje es imperfecto, el cableado aún humea, pero la gente entra y se queda.",
+          "No hay lista de correo sofisticada: vecinos, artistas, algún comisario de boca a boca. Se aprende qué aguanta el eco y cuánto texto necesita una cartela aquí.",
+          "El piloto no busca prensa nacional. Busca permiso del edificio: confirmar que Pujades 102 puede sostener mirada. Lo sostiene.",
+        ],
+        paragraphsEn: [
+          "Three local artists and one night open to the neighbourhood. The install is imperfect, wiring still hums, but people enter and stay.",
+          "No sophisticated mailing list: neighbours, artists, a curator by word of mouth. We learn what the echo can take and how much text a caption needs here.",
+          "The pilot does not chase national press. It seeks the building’s permission: confirmation that Pujades 102 can hold a gaze. It does.",
+        ],
+      },
+    ],
+  },
+{
+    year: "2018",
+    items: [
+      {
+        title: "La idea en el 22@",
+        titleEn: "The idea in 22@",
+        paragraphs: [
+          "Comisarios y artistas del Poblenou se reúnen en naves a medias — a veces con sillas prestadas —. No buscan escaparate a la acera. Buscan hormigón, altura, eco, distancia al turismo del centro.",
+          "Las conversaciones mezclan programa y arquitectura: qué prácticas merecen ese marco, qué se rechaza de antemano. El tono es de taller, no de business plan.",
+          "Al cerrar el año no hay contrato, pero sí obstinación compartida: si el proyecto existe, existirá dentro de una nau.",
+        ],
+        paragraphsEn: [
+          "Curators and artists from Poblenou meet in half-empty warehouses — sometimes with borrowed chairs —. They are not looking for a shop window on the pavement. They want concrete, height, echo, distance from centre-city tourism.",
+          "Conversations mix programme and architecture: which practices deserve that frame, what is refused in advance. The tone is workshop, not business plan.",
+          "By year end there is no lease, but shared stubbornness: if the project exists, it will exist inside a warehouse.",
+        ],
+      },
+      {
+        title: "Fuera del calendario de feria",
+        titleEn: "Outside the fair calendar",
+        paragraphs: [
+          "Acuerdo temprano: primero el espacio y el criterio; el circuito, si llega, después. Si Basilea o Madrid dictan el calendario, Pujades deja de mandar.",
+        ],
+        paragraphsEn: [
+          "Early agreement: space and criterion first; the circuit later, if it comes. If Basel or Madrid dictate the calendar, Pujades stops being in charge.",
+        ],
+      },
+      {
+        title: "Búsqueda del edificio",
+        titleEn: "Finding the building",
+        paragraphs: [
+          "Varias naves se descartan: demasiada reforma, techos bajos, alquileres que obligarían a un modelo comercial agresivo. La búsqueda es lenta.",
+          "Pujades 102 entra a finales de año: escala correcta, carácter industrial intacto, vecinos que aún son taller. 2018 cierra sin llave, pero con dirección probable — y con la paciencia de no abrir en el local equivocado.",
+        ],
+        paragraphsEn: [
+          "Several warehouses are discarded: too much work, low ceilings, rents that would force an aggressive commercial model. The search is slow.",
+          "Pujades 102 enters late in the year: right scale, industrial character intact, neighbours who are still workshops. 2018 closes without a key, but with a probable address — and the patience not to open in the wrong unit.",
+        ],
+      },
+    ],
+  },
 ];
