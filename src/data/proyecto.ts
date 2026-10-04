@@ -49,4 +49,46 @@ export const historyIntro = {
 };
 
 /** Actual → antiguo. Longitudes mixtas a propósito (1 / 2 / 3 párrafos). */
-export const milestones: Milestone[] = [];
+export const milestones: Milestone[] = [
+{
+    year: "2026",
+    items: [
+      {
+        title: "Invitación Art Basel Statements 2027",
+        titleEn: "Art Basel Statements 2027 invitation",
+        paragraphs: [
+          "En primavera se confirma la invitación al sector Statements de Art Basel 2027 con un solo project. No se trata de un stand comercial permanente ni de una presencia “porque toca”: es una propuesta curada desde Pujades 102, pensada a escala de sala y con un artista del roster cuyo trabajo resiste el ruido de feria sin diluirse.",
+          "La decisión interna fue larga. Nau 22 había rechazado antes stands anuales fijos; aceptar Statements implica aceptar un marco internacional sin renunciar al criterio de la nave. El montaje se ensayará primero en Barcelona: si no funciona contra el hormigón de Pujades, no viaja.",
+          "Para el proyecto, el logro no es “estar en Basilea”. Es demostrar que una galería del 22@ puede entrar en el circuito por invitación, con una sola idea fuerte, y volver a la nave sin haber convertido el programa en escaparate.",
+        ],
+        paragraphsEn: [
+          "In spring the invitation to Art Basel 2027 Statements is confirmed with a solo project. It is not a permanent commercial booth or a presence “because it is time”: it is a proposal curated from Pujades 102, thought at room scale, with a roster artist whose work can withstand fair noise without dissolving.",
+          "The internal decision took time. Nau 22 had previously refused fixed annual booths; accepting Statements means accepting an international frame without giving up the warehouse criterion. The install will be rehearsed first in Barcelona: if it does not work against Pujades concrete, it does not travel.",
+          "For the project, the achievement is not “being in Basel”. It is proving that a 22@ gallery can enter the circuit by invitation, with one strong idea, and return to the warehouse without having turned the programme into a shop window.",
+        ],
+      },
+      {
+        title: "Temporada en sala",
+        titleEn: "Floor season",
+        paragraphs: [
+          "Individuales y una colectiva de distrito; entrada libre; consulta de obra por correo. El patio solo se activa si la instalación lo pide.",
+        ],
+        paragraphsEn: [
+          "Solos and one district group show; free entry; work enquiries by mail. The yard activates only if the installation asks for it.",
+        ],
+      },
+      {
+        title: "Préstamos a instituciones",
+        titleEn: "Institutional loans",
+        paragraphs: [
+          "Tres piezas del archivo salen en préstamo largo: una a un museo universitario en Barcelona y dos a un centro de arte en el norte de Europa. No son ventas disfrazadas: son contratos, crating y conservación negociados desde Pujades.",
+          "El protocolo de 2023 se pone a prueba a escala real. Por primera vez la galería gestiona transporte internacional sin intermediario de feria; el artista firma el estado de la obra al salir y al volver.",
+        ],
+        paragraphsEn: [
+          "Three archive works leave on long loan: one to a university museum in Barcelona and two to an art centre in northern Europe. Not sales in disguise: contracts, crating and conservation negotiated from Pujades.",
+          "The 2023 protocol is tested at real scale. For the first time the gallery manages international transport without a fair intermediary; the artist signs the condition report on departure and return.",
+        ],
+      },
+    ],
+  },
+];
