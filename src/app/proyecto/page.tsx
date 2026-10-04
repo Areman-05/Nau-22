@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { historyIntro } from "@/data/proyecto";
+import { gallery } from "@/data/gallery";
+import { historyIntro, milestones } from "@/data/proyecto";
 import { useLocale } from "@/context/LocaleContext";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
@@ -23,6 +24,7 @@ export default function ProyectoPage() {
   useEffect(() => {
     setReady(true);
   }, []);
+
 
   return (
     <div className="w-full bg-background min-h-screen flex flex-col pb-40">
@@ -78,6 +80,68 @@ export default function ProyectoPage() {
             </div>
           </div>
         </div>
+
+        <div className="flex flex-col">
+          {milestones.map((m, yearIndex) => {
+            const isLastYear = yearIndex === milestones.length - 1;
+            return (
+              <div
+                key={m.year}
+                className={`grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 border-t border-foreground/10 pt-16 md:pt-28 ${
+                  isLastYear ? "pb-0" : "pb-16 md:pb-28"
+                }`}
+              >
+                <div className="md:col-span-4">
+                  <div className="sticky top-40 font-serif text-6xl md:text-8xl lg:text-[9rem] leading-none tracking-tighter text-foreground/20">
+                    {m.year}
+                  </div>
+                </div>
+                <div className="md:col-span-8 flex flex-col gap-14 md:gap-20 mt-4 md:mt-0">
+                  {m.items.map((item) => {
+                    const paras = locale === "es" ? item.paragraphs : item.paragraphsEn;
+                    const isShort = paras.length === 1;
+                    const isLong = paras.length >= 3;
+                    return (
+                      <motion.article
+                        key={item.title}
+                        initial={ready ? { opacity: 0, y: 40 } : false}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 1.2, ease: easeOut }}
+                        className={`flex flex-col ${isLong ? "max-w-2xl" : "max-w-xl"}`}
+                      >
+                        <h3
+                          className={
+                            isShort
+                              ? "font-sans text-lg md:text-xl tracking-tight text-foreground mb-3"
+                              : "font-serif text-2xl md:text-3xl lg:text-4xl leading-[1.15] tracking-tight text-foreground mb-5"
+                          }
+                        >
+                          {locale === "es" ? item.title : item.titleEn}
+                        </h3>
+                        <div
+                          className={`font-sans leading-relaxed text-foreground/65 flex flex-col ${
+                            isShort
+                              ? "text-sm md:text-base gap-0"
+                              : isLong
+                                ? "text-base md:text-lg gap-5"
+                                : "text-base gap-4"
+                          }`}
+                        >
+                          {paras.map((p) => (
+                            <p key={p.slice(0, 48)}>{p}</p>
+                          ))}
+                        </div>
+                      </motion.article>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
       </section>
     </div>
   );
