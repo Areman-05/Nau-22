@@ -1,14 +1,6 @@
-export type Achievement = {
-  title: string;
-  titleEn: string;
-  paragraphs: string[];
-  paragraphsEn: string[];
-};
+import type { Achievement, Milestone } from "./types";
 
-export type Milestone = {
-  year: string;
-  items: Achievement[];
-};
+export type { Achievement, Milestone };
 
 export const manifestoLead = {
   es: "No somos un cubo blanco flotante. Somos una nave en el 22@ que decide qué se mira y cómo se mira.",
@@ -428,3 +420,26 @@ export const milestones: Milestone[] = [
     ],
   },
 ];
+
+export function listMilestones(): Milestone[] {
+  return milestones;
+}
+
+export function getMilestone(year: string): Milestone | undefined {
+  return milestones.find((m) => m.year === year);
+}
+
+export function getManifesto(locale: "es" | "en") {
+  return {
+    lead: locale === "es" ? manifestoLead.es : manifestoLead.en,
+    body: locale === "es" ? manifestoBody.es : manifestoBody.en,
+  };
+}
+
+export function getHistoryIntro(locale: "es" | "en") {
+  return {
+    title: locale === "es" ? historyIntro.title.es : historyIntro.title.en,
+    paragraphs:
+      locale === "es" ? historyIntro.paragraphs.es : historyIntro.paragraphs.en,
+  };
+}
