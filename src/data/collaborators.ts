@@ -116,6 +116,22 @@ export const collaborators: Collaborator[] = [
   },
 ].sort((a, b) => a.name.localeCompare(b.name, "es"));
 
+export function listCollaborators(): Collaborator[] {
+  return collaborators;
+}
+
 export function getCollaborator(slug: string): Collaborator | undefined {
   return collaborators.find((c) => c.slug === slug);
+}
+
+export function requireCollaborator(slug: string): Collaborator {
+  const collaborator = getCollaborator(slug);
+  if (!collaborator) {
+    throw new Error(`Collaborator not found: ${slug}`);
+  }
+  return collaborator;
+}
+
+export function getCollaboratorSlugs(): string[] {
+  return collaborators.map((c) => c.slug);
 }
