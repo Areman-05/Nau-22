@@ -122,6 +122,10 @@ const TITLES: Record<string, Omit<ArchiveWork, "image" | "dimensions">[]> = {
   ],
 };
 
+export function getArchiveTitleSlugs(): string[] {
+  return Object.keys(TITLES);
+}
+
 export function getArchiveWorks(artist: Artist): ArchiveWork[] {
   const titles = TITLES[artist.slug];
   if (titles) return pad(artist, titles);
@@ -132,4 +136,8 @@ export function getArchiveWorks(artist: Artist): ArchiveWork[] {
     dimensions: DIMS[i % DIMS.length],
     image: img.src,
   }));
+}
+
+export function hasCuratedArchive(slug: string): boolean {
+  return Boolean(TITLES[slug]?.length);
 }
