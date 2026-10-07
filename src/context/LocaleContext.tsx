@@ -1,8 +1,32 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useSyncExternalStore,
+} from "react";
 
 export type Locale = "es" | "en";
+
+const STORAGE_KEY = "nau22-locale";
+const CHANGE_EVENT = "nau22-locale-change";
+
+function subscribeLocale(onStoreChange: () => void) {
+  const onChange = () => onStoreChange();
+  window.addEventListener("storage", onChange);
+  window.addEventListener(CHANGE_EVENT, onChange);
+  return () => {
+    window.removeEventListener("storage", onChange);
+    window.removeEventListener(CHANGE_EVENT, onChange);
+  };
+}
+
+function readLocale(): Locale {
+  const stored = window.localStorage.getItem(STORAGE_KEY);
+  return stored === "en" ? "en" : "es";
+}
 
 const LocaleContext = createContext<{
   locale: Locale;
@@ -10,16 +34,11 @@ const LocaleContext = createContext<{
 } | null>(null);
 
 export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("es");
-
-  useEffect(() => {
-    const stored = window.localStorage.getItem("nau22-locale") as Locale | null;
-    if (stored === "es" || stored === "en") setLocaleState(stored);
-  }, []);
+  const locale = useSyncExternalStore(subscribeLocale, readLocale, () => "es" as Locale);
 
   const setLocale = useCallback((l: Locale) => {
-    setLocaleState(l);
-    window.localStorage.setItem("nau22-locale", l);
+    window.localStorage.setItem(STORAGE_KEY, l);
+    window.dispatchEvent(new Event(CHANGE_EVENT));
   }, []);
 
   const value = useMemo(() => ({ locale, setLocale }), [locale, setLocale]);
