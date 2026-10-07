@@ -1,4 +1,6 @@
-export const gallery = {
+import type { GalleryConfig } from "./types";
+
+export const gallery: GalleryConfig = {
   name: "nau 22",
   tagline: "Galería contemporánea · Poblenou",
   taglineEn: "Contemporary gallery · Poblenou",
@@ -18,3 +20,15 @@ export const gallery = {
     en: "Sun — Tue closed",
   },
 };
+
+export function getGallery(): GalleryConfig {
+  return gallery;
+}
+
+export function getGalleryContactHref(): string {
+  return `mailto:${gallery.email}`;
+}
+
+export function getGalleryPhoneHref(): string {
+  return `tel:${gallery.phone.replace(/\s/g, "")}`;
+}
