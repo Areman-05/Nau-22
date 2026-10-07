@@ -293,6 +293,22 @@ export const artists: Artist[] = [
   },
 ].sort((a, b) => a.name.localeCompare(b.name, "es"));
 
+export function listArtists(): Artist[] {
+  return artists;
+}
+
 export function getArtist(slug: string): Artist | undefined {
   return artists.find((a) => a.slug === slug);
+}
+
+export function requireArtist(slug: string): Artist {
+  const artist = getArtist(slug);
+  if (!artist) {
+    throw new Error(`Artist not found: ${slug}`);
+  }
+  return artist;
+}
+
+export function getArtistSlugs(): string[] {
+  return artists.map((a) => a.slug);
 }
