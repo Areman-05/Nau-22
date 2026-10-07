@@ -591,8 +591,20 @@ export const exhibitions: Exhibition[] = rawExhibitions.map((exh) => ({
   works: exhibitionWorks[exh.id] ?? exh.works,
 }));
 
+export function listExhibitions(): Exhibition[] {
+  return exhibitions;
+}
+
 export function getExhibition(id: string): Exhibition | undefined {
   return exhibitions.find((e) => e.id === id);
+}
+
+export function requireExhibition(id: string): Exhibition {
+  const exhibition = getExhibition(id);
+  if (!exhibition) {
+    throw new Error(`Exhibition not found: ${id}`);
+  }
+  return exhibition;
 }
 
 export function getCurrentExhibition(): Exhibition | undefined {
@@ -601,4 +613,12 @@ export function getCurrentExhibition(): Exhibition | undefined {
 
 export function getExhibitionsByStatus(status: Exhibition["status"]): Exhibition[] {
   return exhibitions.filter((e) => e.status === status);
+}
+
+export function getExhibitionsForArtist(slug: string): Exhibition[] {
+  return exhibitions.filter((e) => e.artistSlugs.includes(slug));
+}
+
+export function getExhibitionIds(): string[] {
+  return exhibitions.map((e) => e.id);
 }
