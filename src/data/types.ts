@@ -3,6 +3,38 @@ export interface PersonImage {
   alt: string;
 }
 
+export interface GalleryHours {
+  es: string;
+  en: string;
+}
+
+export interface GalleryConfig {
+  name: string;
+  tagline: string;
+  taglineEn: string;
+  addressLine: string;
+  postalCode: string;
+  neighborhood: string;
+  city: string;
+  email: string;
+  phone: string;
+  instagram: string;
+  hours: GalleryHours;
+  closed: GalleryHours;
+}
+
+export interface Achievement {
+  title: string;
+  titleEn: string;
+  paragraphs: string[];
+  paragraphsEn: string[];
+}
+
+export interface Milestone {
+  year: string;
+  items: Achievement[];
+}
+
 export interface ArchiveWork {
   title: string;
   year: string;
