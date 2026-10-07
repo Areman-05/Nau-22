@@ -1,24 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import { getNews } from "@/data/news";
+import { getNews } from "@/data";
 import { useLocale } from "@/context/LocaleContext";
+import { useIsClient } from "@/lib/useIsClient";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export default function NoticiaDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { locale } = useLocale();
-  const [ready, setReady] = useState(false);
+  const ready = useIsClient();
   const item = getNews(id);
-
-  useEffect(() => {
-    setReady(true);
-  }, []);
 
   if (!item) notFound();
 

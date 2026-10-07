@@ -1,23 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { news } from "@/data/news";
+import { news } from "@/data";
 import { useLocale } from "@/context/LocaleContext";
+import { useIsClient } from "@/lib/useIsClient";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export default function NoticiasPage() {
   const { locale } = useLocale();
-  const [ready, setReady] = useState(false);
+  const ready = useIsClient();
   const featured = news[0];
   const list = news.slice(1);
-
-  useEffect(() => {
-    setReady(true);
-  }, []);
 
   if (!featured) return null;
 

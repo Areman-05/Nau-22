@@ -4,14 +4,17 @@ import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowLeft, Download } from "lucide-react";
-import { getExhibition } from "@/data/exhibitions";
+import { getExhibition } from "@/data";
 import { EnquireButton } from "@/components/EnquireButton";
 import { useLocale } from "@/context/LocaleContext";
+import { useIsClient } from "@/lib/useIsClient";
+
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export default function ExhibitionDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { locale } = useLocale();
+  const ready = useIsClient();
   const exh = getExhibition(id);
   if (!exh) notFound();
 
@@ -125,7 +128,7 @@ export default function ExhibitionDetailPage() {
           {checklist.map((work, idx) => (
             <motion.div
               key={`${work.title}-${idx}`}
-              initial={{ opacity: 0, y: 20 }}
+              initial={ready ? { opacity: 0, y: 20 } : false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8, delay: idx * 0.1, ease: easeOut }}

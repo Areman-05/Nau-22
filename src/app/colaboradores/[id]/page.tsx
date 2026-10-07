@@ -2,7 +2,7 @@
 
 import { notFound, useParams } from "next/navigation";
 import { PersonDetail } from "@/components/PersonDetail";
-import { getCollaborator } from "@/data/collaborators";
+import { getCollaborator } from "@/data";
 
 export default function CollaboratorDetailPage() {
   const { id } = useParams<{ id: string }>();

@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { getArchiveWorks } from "@/data/archiveWorks";
-import { exhibitions } from "@/data/exhibitions";
+import { exhibitions, getArchiveWorks, type Artist, type Collaborator } from "@/data";
 import { EnquireButton } from "@/components/EnquireButton";
 import { useLocale } from "@/context/LocaleContext";
-import type { Artist, Collaborator } from "@/data/types";
+import { useIsClient } from "@/lib/useIsClient";
 
 type Person = Artist | Collaborator;
 
@@ -17,6 +16,7 @@ function isArtist(p: Person): p is Artist {
 
 export function PersonDetail({ person }: { person: Person; backHref?: string }) {
   const { locale } = useLocale();
+  const ready = useIsClient();
   const year = isArtist(person) ? person.birthYear : person.year;
   const isCollective =
     person.slug === "colectivo-22" || person.slug === "studio-manta" || !isArtist(person);
@@ -101,7 +101,7 @@ export function PersonDetail({ person }: { person: Person; backHref?: string }) 
               {archive.map((work) => (
                 <motion.div
                   key={work.title}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={ready ? { opacity: 0, y: 30 } : false}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}

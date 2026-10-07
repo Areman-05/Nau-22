@@ -3,8 +3,9 @@
 import { useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowUpRight, X } from "lucide-react";
-import { gallery } from "@/data/gallery";
+import { gallery } from "@/data";
 import { useLocale } from "@/context/LocaleContext";
+import { useIsClient } from "@/lib/useIsClient";
 
 export type EnquireContext = {
   work?: string;
@@ -50,9 +51,7 @@ export function EnquireButton({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
+  const mounted = useIsClient();
 
   useEffect(() => {
     if (!open) return;

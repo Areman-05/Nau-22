@@ -1,21 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import { manifestoBody, manifestoLead } from "@/data/proyecto";
+import { manifestoBody, manifestoLead } from "@/data";
 import { useLocale } from "@/context/LocaleContext";
+import { useIsClient } from "@/lib/useIsClient";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export default function ManifiestoPage() {
   const { locale } = useLocale();
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    setReady(true);
-  }, []);
+  const ready = useIsClient();
 
   return (
     <div className="w-full bg-background min-h-screen flex flex-col pb-40">

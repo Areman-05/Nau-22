@@ -2,7 +2,7 @@
 
 import { notFound, useParams } from "next/navigation";
 import { PersonDetail } from "@/components/PersonDetail";
-import { getArtist } from "@/data/artists";
+import { getArtist } from "@/data";
 
 export default function ArtistDetailPage() {
   const { id } = useParams<{ id: string }>();

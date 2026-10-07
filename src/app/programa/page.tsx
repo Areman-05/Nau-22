@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { getExhibitionsByStatus } from "@/data/exhibitions";
+import { getExhibitionsByStatus, type Exhibition } from "@/data";
 import { useLocale } from "@/context/LocaleContext";
-import type { Exhibition } from "@/data/types";
+import { useIsClient } from "@/lib/useIsClient";
 
 export default function ProgramPage() {
   const { locale } = useLocale();
@@ -122,9 +122,10 @@ function CurrentCard({
   alignEnd?: boolean;
 }) {
   const { locale } = useLocale();
+  const ready = useIsClient();
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
+      initial={ready ? { opacity: 0, y: 40 } : false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}

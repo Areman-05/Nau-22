@@ -1,30 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { artists } from "@/data/artists";
-import { getExhibitionsByStatus } from "@/data/exhibitions";
-import { news } from "@/data/news";
+import { artists, getExhibitionsByStatus, getLatestNews } from "@/data";
 import { useLocale } from "@/context/LocaleContext";
+import { useIsClient } from "@/lib/useIsClient";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export default function HomePage() {
   const { locale } = useLocale();
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    setReady(true);
-  }, []);
+  const ready = useIsClient();
   const currents = getExhibitionsByStatus("current");
   const upcomingList = getExhibitionsByStatus("upcoming");
   const currentExh = currents[0];
   const upcomingExh = upcomingList[0] ?? currents[1];
   const featuredArtists = artists.slice(0, 4);
   const focusArtist = featuredArtists[0];
-  const newsItems = news.slice(0, 7);
+  const newsItems = getLatestNews(7);
 
   if (!currentExh) return null;
 

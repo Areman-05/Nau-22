@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { gallery } from "@/data/gallery";
-import { historyIntro, milestones } from "@/data/proyecto";
+import { gallery, historyIntro, milestones } from "@/data";
 import { useLocale } from "@/context/LocaleContext";
+import { useIsClient } from "@/lib/useIsClient";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
@@ -14,17 +14,13 @@ const BUILDING =
 
 export default function ProyectoPage() {
   const { locale } = useLocale();
-  const [ready, setReady] = useState(false);
+  const ready = useIsClient();
   const photoRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: photoRef,
     offset: ["start end", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
-
-  useEffect(() => {
-    setReady(true);
-  }, []);
 
   useEffect(() => {
     if (window.location.hash !== "#visitar") return;

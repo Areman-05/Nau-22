@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { artists } from "@/data/artists";
-import { collaborators } from "@/data/collaborators";
+import { artists, collaborators, type Collaborator } from "@/data";
 import { EnquireButton } from "@/components/EnquireButton";
 import { useLocale } from "@/context/LocaleContext";
-import type { Collaborator } from "@/data/types";
+import { useIsClient } from "@/lib/useIsClient";
 
 const fadeVariants = {
   initial: { opacity: 0, y: 10, filter: "blur(4px)" },
@@ -33,11 +32,7 @@ export default function ArtistasPage() {
     src: string;
     side: "left" | "right";
   } | null>(null);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    setReady(true);
-  }, []);
+  const ready = useIsClient();
 
   return (
     <div className="pt-8 pb-24 px-6 md:px-12 max-w-[1600px] mx-auto min-h-screen flex flex-col items-center relative">

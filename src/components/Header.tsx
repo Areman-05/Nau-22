@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { gallery } from "@/data/gallery";
+import { gallery } from "@/data";
 import { useLocale } from "@/context/LocaleContext";
 
 const navLinks = [
@@ -28,7 +28,6 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    setIsMenuOpen(false);
     if (!window.location.hash) {
       window.scrollTo(0, 0);
     }
@@ -46,6 +45,7 @@ export function Header() {
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 flex items-center justify-between">
           <Link
             href="/"
+            onClick={() => setIsMenuOpen(false)}
             className="font-serif text-5xl md:text-6xl tracking-tighter leading-none hover:text-accent transition-colors block relative z-50 text-foreground"
           >
             nau 22
@@ -102,6 +102,7 @@ export function Header() {
                 >
                   <Link
                     href={link.path}
+                    onClick={() => setIsMenuOpen(false)}
                     className={`font-serif text-3xl uppercase tracking-tighter hover:text-accent hover:italic transition-all duration-300 block ${
                       pathname.startsWith(link.path) ? "text-accent italic" : "text-foreground"
                     }`}
