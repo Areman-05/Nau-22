@@ -191,3 +191,11 @@ export const exhibitionWorks: Record<string, ExhibitionWork[]> = {
     piece("Agua", "Acrílico", "80 × 60 cm", "2022", paint.tide),
   ],
 };
+
+export function listExhibitionWorkIds(): string[] {
+  return Object.keys(exhibitionWorks);
+}
+
+export function getExhibitionWorks(id: string): ExhibitionWork[] {
+  return exhibitionWorks[id] ?? [];
+}
