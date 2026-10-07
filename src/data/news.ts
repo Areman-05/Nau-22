@@ -271,6 +271,31 @@ export const news: NewsItem[] = [
   },
 ];
 
+export function listNews(): NewsItem[] {
+  return news;
+}
+
 export function getNews(id: string): NewsItem | undefined {
   return news.find((item) => item.id === id);
+}
+
+export function requireNews(id: string): NewsItem {
+  const item = getNews(id);
+  if (!item) {
+    throw new Error(`News item not found: ${id}`);
+  }
+  return item;
+}
+
+export function getNewsByCategory(category: string): NewsItem[] {
+  const needle = category.trim().toLowerCase();
+  return news.filter(
+    (item) =>
+      item.category.toLowerCase() === needle ||
+      item.categoryEn.toLowerCase() === needle,
+  );
+}
+
+export function getLatestNews(limit = 7): NewsItem[] {
+  return news.slice(0, Math.max(0, limit));
 }
