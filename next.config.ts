@@ -28,6 +28,7 @@ const nextConfig: NextConfig = {
       { source: "/visitar", destination: "/proyecto", permanent: false },
       { source: "/la-nau", destination: "/proyecto", permanent: false },
       { source: "/info", destination: "/proyecto", permanent: false },
+      { source: "/miembros", destination: "/artistas", permanent: false },
     ];
   },
 };
