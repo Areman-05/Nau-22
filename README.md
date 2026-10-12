@@ -80,6 +80,8 @@ npm run dev
 
 [http://localhost:3000](http://localhost:3000)
 
+Demo en GitHub Pages: [https://areman-05.github.io/Nau-22/](https://areman-05.github.io/Nau-22/) (tras activar Pages y el primer deploy).
+
 ```bash
 npm test        # catálogo e integridad de datos
 npm run typecheck
