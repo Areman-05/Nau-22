@@ -61,7 +61,7 @@ Home → Programa | Artistas | Journal | Proyecto
 
 - Header mínimo (wordmark + menú). Las secciones viven dentro, no en una barra permanente.
 - Fichas con retroceso predecible (índice de exposiciones, etc.).
-- Footer con ubicación, horario, contacto e idioma (ES / EN; CAT previsto).
+- Footer con ubicación, horario, contacto e idioma (ES / CAT / EN).
 - Estados y copy en dos idiomas; el tono es de cartela, no de marketing.
 
 **Patrones**
