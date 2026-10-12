@@ -1,4 +1,5 @@
 import type { NewsItem } from "./types";
+import { copyCa } from "./copyCa";
 import { paint } from "./media";
 
 export const news: NewsItem[] = [
@@ -289,11 +290,14 @@ export function requireNews(id: string): NewsItem {
 
 export function getNewsByCategory(category: string): NewsItem[] {
   const needle = category.trim().toLowerCase();
-  return news.filter(
-    (item) =>
+  return news.filter((item) => {
+    const ca = copyCa.news[item.id as keyof typeof copyCa.news];
+    return (
       item.category.toLowerCase() === needle ||
-      item.categoryEn.toLowerCase() === needle,
-  );
+      item.categoryEn.toLowerCase() === needle ||
+      ca?.category.toLowerCase() === needle
+    );
+  });
 }
 
 export function getLatestNews(limit = 7): NewsItem[] {

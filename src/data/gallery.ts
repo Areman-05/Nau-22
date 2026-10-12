@@ -4,6 +4,7 @@ export const gallery: GalleryConfig = {
   name: "nau 22",
   tagline: "Galería contemporánea · Poblenou",
   taglineEn: "Contemporary gallery · Poblenou",
+  taglineCa: "Galeria contemporània · Poblenou",
   addressLine: "Carrer de Pujades, 102",
   postalCode: "08005",
   neighborhood: "Poblenou, 22@",
@@ -14,10 +15,12 @@ export const gallery: GalleryConfig = {
   hours: {
     es: "Miércoles — Sábado · 12:00 — 20:00",
     en: "Wednesday — Saturday · 12:00 — 20:00",
+    ca: "Dimecres — Dissabte · 12:00 — 20:00",
   },
   closed: {
     es: "Dom — Mar cerrado",
     en: "Sun — Tue closed",
+    ca: "Dg — Dt tancat",
   },
 };
 

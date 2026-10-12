@@ -86,6 +86,8 @@ export {
   milestones,
 } from "./proyecto";
 
+export { copyCa } from "./copyCa";
+
 export {
   assertDataIntegrity,
   collectIntegrityIssues,

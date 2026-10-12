@@ -6,12 +6,14 @@ export interface PersonImage {
 export interface GalleryHours {
   es: string;
   en: string;
+  ca: string;
 }
 
 export interface GalleryConfig {
   name: string;
   tagline: string;
   taglineEn: string;
+  taglineCa: string;
   addressLine: string;
   postalCode: string;
   neighborhood: string;

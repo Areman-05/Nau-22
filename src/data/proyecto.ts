@@ -1,3 +1,4 @@
+import type { Locale } from "@/lib/locale";
 import type { Achievement, Milestone } from "./types";
 
 export type { Achievement, Milestone };
@@ -5,6 +6,7 @@ export type { Achievement, Milestone };
 export const manifestoLead = {
   es: "No somos un cubo blanco flotante. Somos una nave en el 22@ que decide qué se mira y cómo se mira.",
   en: "We are not a floating white cube. We are a warehouse in 22@ that decides what is looked at and how.",
+  ca: "No som un cub blanc flotant. Som una nau al 22@ que decideix què es mira i com es mira.",
 };
 
 export const manifestoBody = {
@@ -22,10 +24,17 @@ export const manifestoBody = {
     "Nor do we sell a team. There is no “about us” page with portraits and job titles. The project explains itself through the building, the programme and the artists who pass through Pujades 102. Whoever wants to understand Nau 22 comes in, looks, and asks about work. Hours, metro and mail sit under Project, in Visit: use data, not visit marketing.",
     "In eight years we have gone from conversations in half-empty warehouses to a reference space in 22@, with institutional loans, a public journal, a floor archive and a season that holds without adding noise. The story of the building and programme — dates, achievements, decisions — lives under Project; this text is only the attitude with which we look.",
   ],
+  ca: [
+    "Nau 22 ocupa una antiga estructura industrial al Carrer de Pujades, al cor del districte 22@. L’edifici no es va rehabilitar per semblar una galeria de l’Eixample: es va deixar com a nau. Pilars a la vista, forjat alt, eco que no s’ofega amb panells acústics. Aquesta decisió no és estètica d’aparador; és el marc des del qual es programa. Qui entra entén, abans de llegir una cartela, que l’espai té història productiva i que l’exposició es munta contra aquesta memòria, no malgrat ella.",
+    "El projecte neix d’una fricció deliberada: entre la ruïna industrial del Poblenou i la sala neta que l’art contemporani sol exigir. No resolvem aquesta tensió amb pintura blanca i terra de resina brillant. La mantenim. El formigó tacat, la llum desigual pels lluernaris, el soroll llunyà de grues del 22@ — tot això forma part de la lectura. L’obra no s’aïlla del barri; el barri entra a la sala com a condició de visió.",
+    "La programació és exposició, no comerç. No hi ha e-commerce, no hi ha carret, no hi ha fira permanent a la porta. Representem pràctiques contemporànies — pintura de gest urbà, instal·lació, arxiu, so lligat al territori — amb rigor curatorial i amb un ritme que no es plega al calendari de fires internacionals. Quan sortim al circuit, ho fem per invitació i amb una proposta concreta, no amb un estand que cal renovar cada any.",
+    "Tampoc no venem un equip. No hi ha pàgina de “qui som” amb retrats i càrrecs. El projecte s’explica per l’edifici, pel programa i pels artistes que passen per Pujades 102. Qui vol entendre Nau 22, entra, mira i pregunta per obra. Horaris, metro i correu són a Projecte, a Visitar: dades d’ús, no màrqueting de visita.",
+    "En vuit anys hem passat de converses en naus a mitges a un espai de referència del 22@, amb préstecs a institucions, un journal públic, un arxiu de sala i una temporada que se sosté sense ampliar el soroll. La història de l’edifici i del programa — dates, fites, decisions — és a Projecte; aquest text és només l’actitud amb què es mira.",
+  ],
 };
 
 export const historyIntro = {
-  title: { es: "De la idea a la nave", en: "From idea to warehouse" },
+  title: { es: "De la idea a la nave", en: "From idea to warehouse", ca: "De la idea a la nau" },
   paragraphs: {
     es: [
       "Esta cronología se lee al revés a propósito: de 2026 hacia 2018. Empezamos por lo que la galería es hoy — préstamos, temporada, invitaciones al circuito — y bajamos hasta las conversaciones en naves vacías donde aún no había nombre ni contrato. No es nostalgia: es método. Entender Nau 22 exige ver qué se ha consolidado y, después, de dónde salió la obstinación de no convertir la nave en tienda.",
@@ -36,6 +45,11 @@ export const historyIntro = {
       "This timeline is read backwards on purpose: from 2026 toward 2018. We start with what the gallery is today — loans, season, invitations into the circuit — and move down to conversations in empty warehouses where there was not yet a name or a lease. It is not nostalgia: it is method. Understanding Nau 22 means seeing what has been consolidated and, then, where the stubborn refusal to turn the warehouse into a shop came from.",
       "Nor is it an inflated prize list. Each block summarises decisions, works, publications and openings that left a mark on the building or the programme. Some achievements are public and visible (a season, a fair, an essay). Others are internal but decisive: a loan protocol, the refusal of e-commerce, the written roster criterion. Without those, the room would not sustain what is seen now.",
       "The thread is always the same: Pujades 102, 22@, and an idea of exhibition that puts space before circuit. Everything else — artists, group shows, journal, archive — grows around that idea, not the other way around.",
+    ],
+    ca: [
+      "Aquesta cronologia es llegeix al revés a propòsit: del 2026 cap al 2018. Comencem pel que la galeria és avui — préstecs, temporada, invitacions al circuit — i baixem fins a les converses en naus buides on encara no hi havia nom ni contracte. No és nostàlgia: és mètode. Entendre Nau 22 exigeix veure què s’ha consolidat i, després, d’on va sortir l’obstinació de no convertir la nau en botiga.",
+      "Tampoc no és una llista de premis inflada. Cada bloc resumeix decisions, obres, publicacions i obertures que van deixar empremta a l’edifici o al programa. Algunes fites són públiques i visibles (una temporada, una fira, un assaig). D’altres són internes però decisives: un protocol de préstec, la negativa a l’e-commerce, el criteri escrit del roster. Sense aquestes, la sala no sostindria el que es veu ara.",
+      "El fil és sempre el mateix: Pujades 102, el 22@, i una idea d’exposició que anteposa l’espai al circuit. La resta — artistes, col·lectives, journal, arxiu — creix al voltant d’aquesta idea, no a l’inrevés.",
     ],
   },
 };
@@ -429,17 +443,16 @@ export function getMilestone(year: string): Milestone | undefined {
   return milestones.find((m) => m.year === year);
 }
 
-export function getManifesto(locale: "es" | "en") {
+export function getManifesto(locale: Locale) {
   return {
-    lead: locale === "es" ? manifestoLead.es : manifestoLead.en,
-    body: locale === "es" ? manifestoBody.es : manifestoBody.en,
+    lead: manifestoLead[locale],
+    body: manifestoBody[locale],
   };
 }
 
-export function getHistoryIntro(locale: "es" | "en") {
+export function getHistoryIntro(locale: Locale) {
   return {
-    title: locale === "es" ? historyIntro.title.es : historyIntro.title.en,
-    paragraphs:
-      locale === "es" ? historyIntro.paragraphs.es : historyIntro.paragraphs.en,
+    title: historyIntro.title[locale],
+    paragraphs: historyIntro.paragraphs[locale],
   };
 }
