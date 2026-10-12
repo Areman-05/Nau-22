@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Hide the bottom-left Next.js Dev Tools badge in development.
+  devIndicators: false,
   images: {
     remotePatterns: [
       {
