@@ -14,8 +14,11 @@ describe("gallery", () => {
     expect(gallery.postalCode).toMatch(/^\d{5}$/);
     expect(gallery.hours.es).toBeTruthy();
     expect(gallery.hours.en).toBeTruthy();
+    expect(gallery.hours.ca).toBeTruthy();
     expect(gallery.closed.es).toBeTruthy();
     expect(gallery.closed.en).toBeTruthy();
+    expect(gallery.closed.ca).toBeTruthy();
+    expect(gallery.taglineCa).toBeTruthy();
   });
 
   it("builds usable contact hrefs", () => {

@@ -10,24 +10,31 @@ import {
 } from "../proyecto";
 
 describe("proyecto", () => {
-  it("keeps manifesto bilingual and substantial", () => {
+  it("keeps manifesto trilingual and substantial", () => {
     const es = getManifesto("es");
     const en = getManifesto("en");
+    const ca = getManifesto("ca");
     expect(es.lead).toBe(manifestoLead.es);
     expect(en.lead).toBe(manifestoLead.en);
+    expect(ca.lead).toBe(manifestoLead.ca);
     expect(es.body.length).toBe(manifestoBody.es.length);
     expect(en.body.length).toBe(manifestoBody.en.length);
+    expect(ca.body.length).toBe(manifestoBody.ca.length);
     expect(es.body.length).toBeGreaterThanOrEqual(4);
     expect(en.body.every((p) => p.length > 40)).toBe(true);
+    expect(ca.body.every((p) => p.length > 40)).toBe(true);
   });
 
-  it("exposes history intro for both locales", () => {
+  it("exposes history intro for all locales", () => {
     const es = getHistoryIntro("es");
     const en = getHistoryIntro("en");
+    const ca = getHistoryIntro("ca");
     expect(es.title).toBeTruthy();
     expect(en.title).toBeTruthy();
+    expect(ca.title).toBeTruthy();
     expect(es.paragraphs.length).toBeGreaterThanOrEqual(2);
     expect(en.paragraphs.length).toBe(es.paragraphs.length);
+    expect(ca.paragraphs.length).toBe(es.paragraphs.length);
   });
 
   it("orders milestones from newest to oldest with mixed achievement lengths", () => {

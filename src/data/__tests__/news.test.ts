@@ -26,7 +26,7 @@ describe("news / journal", () => {
     expect(() => requireNews("n-missing")).toThrow(/not found/i);
   });
 
-  it("filters by category in both locales", () => {
+  it("filters by category in all locales", () => {
     const sample = news.find((item) => item.category.trim());
     expect(sample).toBeTruthy();
     if (!sample) return;
@@ -35,5 +35,7 @@ describe("news / journal", () => {
     expect(byEs.length).toBeGreaterThan(0);
     expect(byEn.length).toBeGreaterThan(0);
     expect(byEs.some((item) => item.id === sample.id)).toBe(true);
+    const byCa = getNewsByCategory("Premi");
+    expect(byCa.some((item) => item.id === "n1")).toBe(true);
   });
 });
