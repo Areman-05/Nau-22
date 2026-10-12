@@ -3,15 +3,16 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import { manifestoBody, manifestoLead } from "@/data";
-import { useLocale } from "@/context/LocaleContext";
+import { getManifesto } from "@/data";
+import { useCopy } from "@/context/LocaleContext";
 import { useIsClient } from "@/lib/useIsClient";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export default function ManifiestoPage() {
-  const { locale } = useLocale();
+  const { locale, t } = useCopy();
   const ready = useIsClient();
+  const manifesto = getManifesto(locale);
 
   return (
     <div className="w-full bg-background min-h-screen flex flex-col pb-40">
@@ -31,7 +32,7 @@ export default function ManifiestoPage() {
               className="group-hover:-translate-x-2 transition-transform duration-500 ease-out"
             />
             <span className="font-sans text-xs uppercase tracking-[0.15em] font-semibold">
-              {locale === "es" ? "Volver a Proyecto" : "Back to Project"}
+              {t.backProject}
             </span>
           </Link>
         </motion.div>
@@ -42,7 +43,7 @@ export default function ManifiestoPage() {
           <div className="md:col-span-3">
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent flex items-center gap-3 sticky top-40">
               <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-              {locale === "es" ? "Manifiesto" : "Manifesto"}
+              {t.manifesto}
             </p>
           </div>
           <div className="md:col-span-8 md:col-start-5">
@@ -53,13 +54,13 @@ export default function ManifiestoPage() {
               className="flex flex-col gap-10"
             >
               <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl uppercase tracking-tighter leading-[0.85]">
-                {locale === "es" ? "Manifiesto" : "Manifesto"}
+                {t.manifesto}
               </h1>
               <p className="font-serif text-2xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-foreground">
-                {locale === "es" ? manifestoLead.es : manifestoLead.en}
+                {manifesto.lead}
               </p>
               <div className="font-sans text-lg md:text-xl text-foreground/75 leading-relaxed flex flex-col gap-8 max-w-3xl">
-                {(locale === "es" ? manifestoBody.es : manifestoBody.en).map((p) => (
+                {manifesto.body.map((p) => (
                   <p key={p.slice(0, 48)}>{p}</p>
                 ))}
               </div>

@@ -6,7 +6,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { artists, collaborators, type Collaborator } from "@/data";
 import { EnquireButton } from "@/components/EnquireButton";
-import { useLocale } from "@/context/LocaleContext";
+import { useCopy } from "@/context/LocaleContext";
+import { collaboratorCopy, localizeCountry } from "@/lib/copy";
 import { useIsClient } from "@/lib/useIsClient";
 
 const fadeVariants = {
@@ -26,7 +27,7 @@ const fadeVariants = {
 };
 
 export default function ArtistasPage() {
-  const { locale } = useLocale();
+  const { t } = useCopy();
   const [view, setView] = useState<"artistas" | "colaboradores">("artistas");
   const [hoveredState, setHoveredState] = useState<{
     src: string;
@@ -74,7 +75,7 @@ export default function ArtistasPage() {
                   exit={{ opacity: 0, x: 10 }}
                   onClick={() => setView("artistas")}
                   className="text-foreground/50 hover:text-accent transition-colors p-2"
-                  aria-label={locale === "es" ? "Artistas" : "Artists"}
+                  aria-label={t.artists}
                 >
                   <ArrowLeft strokeWidth={1} size={40} />
                 </motion.button>
@@ -91,7 +92,7 @@ export default function ArtistasPage() {
               exit="exit"
               className="font-serif text-6xl md:text-[8rem] lg:text-[10rem] leading-[0.8] tracking-tighter uppercase text-center w-64 md:w-auto"
             >
-              {view}
+              {view === "artistas" ? t.artists : t.collaborators}
             </motion.h1>
           </AnimatePresence>
 
@@ -108,7 +109,7 @@ export default function ArtistasPage() {
                     setHoveredState(null);
                   }}
                   className="text-foreground/50 hover:text-accent transition-colors p-2"
-                  aria-label={locale === "es" ? "Colaboradores" : "Collaborators"}
+                  aria-label={t.collaborators}
                 >
                   <ArrowRight strokeWidth={1} size={40} />
                 </motion.button>
@@ -180,10 +181,9 @@ export default function ArtistasPage() {
 }
 
 function ColaboradorItem({ person, index }: { person: Collaborator; index: number }) {
-  const { locale } = useLocale();
+  const { locale, t } = useCopy();
   const [isOpen, setIsOpen] = useState(false);
-  const bio1 = locale === "es" ? person.bio : person.bioEn;
-  const bio2 = locale === "es" ? person.bio2 : person.bioEn2;
+  const copy = collaboratorCopy(person, locale);
 
   return (
     <div className="border-b border-foreground/10 py-5 md:py-6 overflow-hidden">
@@ -236,15 +236,15 @@ function ColaboradorItem({ person, index }: { person: Collaborator; index: numbe
             <div className="pl-12 md:pl-14 pt-8 pb-4">
               <div className="flex flex-col gap-6">
                 <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent flex items-center gap-3">
-                  <span>{person.country}</span>
+                  <span>{localizeCountry(person.country, locale)}</span>
                   <span className="w-1 h-1 rounded-full bg-accent" />
                   <span>
-                    {locale === "es" ? "Desde" : "Since"} {person.year}
+                    {t.since} {person.year}
                   </span>
                 </div>
                 <div className="font-sans text-sm md:text-base text-foreground/80 leading-relaxed text-justify max-w-[95%]">
-                  <p className="mb-4">{bio1}</p>
-                  <p>{bio2}</p>
+                  <p className="mb-4">{copy.bio}</p>
+                  <p>{copy.bio2}</p>
                 </div>
                 <EnquireButton
                   variant="line"

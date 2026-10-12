@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { exhibitions, getArchiveWorks, type Artist, type Collaborator } from "@/data";
 import { EnquireButton } from "@/components/EnquireButton";
-import { useLocale } from "@/context/LocaleContext";
+import { useCopy } from "@/context/LocaleContext";
+import { artistCopy, collaboratorCopy, localizeCountry, localizeDate } from "@/lib/copy";
 import { useIsClient } from "@/lib/useIsClient";
 
 type Person = Artist | Collaborator;
@@ -15,20 +16,13 @@ function isArtist(p: Person): p is Artist {
 }
 
 export function PersonDetail({ person }: { person: Person; backHref?: string }) {
-  const { locale } = useLocale();
+  const { locale, t } = useCopy();
   const ready = useIsClient();
   const year = isArtist(person) ? person.birthYear : person.year;
   const isCollective =
     person.slug === "colectivo-22" || person.slug === "studio-manta" || !isArtist(person);
-  const yearLabel = isCollective
-    ? locale === "es"
-      ? "Fundación"
-      : "Founded"
-    : locale === "es"
-      ? "Nacimiento"
-      : "Born";
-  const bio1 = locale === "es" ? person.bio : person.bioEn;
-  const bio2 = locale === "es" ? person.bio2 : person.bioEn2;
+  const yearLabel = isCollective ? t.founded : t.born;
+  const copy = isArtist(person) ? artistCopy(person, locale) : collaboratorCopy(person, locale);
   const hero = person.images[0];
   const archive = isArtist(person) ? getArchiveWorks(person) : [];
   const related = isArtist(person)
@@ -52,9 +46,9 @@ export function PersonDetail({ person }: { person: Person; backHref?: string }) 
           <div className="sticky top-40 flex flex-col gap-8">
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
-                {locale === "es" ? "Origen" : "Origin"}
+                {t.origin}
               </p>
-              <p className="font-sans text-sm uppercase tracking-widest">{person.country}</p>
+              <p className="font-sans text-sm uppercase tracking-widest">{localizeCountry(person.country, locale)}</p>
             </div>
             <div>
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
@@ -67,8 +61,8 @@ export function PersonDetail({ person }: { person: Person; backHref?: string }) 
         </div>
 
         <div className="md:col-span-4 font-sans text-lg md:text-xl text-foreground/80 leading-relaxed text-justify">
-          <p className="mb-8">{bio1}</p>
-          <p>{bio2}</p>
+          <p className="mb-8">{copy.bio}</p>
+          <p>{copy.bio2}</p>
         </div>
 
         <div className="md:col-span-4 md:col-start-9">
@@ -89,10 +83,10 @@ export function PersonDetail({ person }: { person: Person; backHref?: string }) 
             <div className="md:col-span-3">
               <div className="sticky top-40">
                 <h2 className="font-serif text-3xl md:text-4xl tracking-tight uppercase">
-                  {locale === "es" ? "Obras" : "Works"}
+                  {t.works}
                 </h2>
                 <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-6">
-                  {locale === "es" ? "Selección de estudio" : "Studio selection"}
+                  {t.studioSelection}
                 </p>
               </div>
             </div>
@@ -138,7 +132,7 @@ export function PersonDetail({ person }: { person: Person; backHref?: string }) 
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
             <div className="md:col-span-3">
               <h2 className="font-serif text-4xl tracking-tight uppercase mb-12 md:mb-0">
-                {locale === "es" ? "Exposiciones" : "Exhibitions"}
+                {t.exhibitions}
               </h2>
             </div>
             <div className="md:col-span-9 flex flex-col">
@@ -150,7 +144,7 @@ export function PersonDetail({ person }: { person: Person; backHref?: string }) 
                 >
                   <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-16 w-full md:w-auto">
                     <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground w-20">
-                      {exh.date.split(" ")[0]}
+                      {localizeDate(exh.date.split(" ")[0], locale)}
                     </span>
                     <h3 className="font-sans text-2xl md:text-4xl uppercase tracking-tighter group-hover:text-accent transition-colors duration-500">
                       {exh.title}
@@ -158,7 +152,7 @@ export function PersonDetail({ person }: { person: Person; backHref?: string }) 
                   </div>
                   <div className="mt-6 md:mt-0 flex items-center gap-6">
                     <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
-                      {locale === "es" ? "Ver exposición" : "View exhibition"}
+                      {t.viewExhibition}
                     </span>
                     <div className="w-10 h-10 rounded-full border border-foreground/10 flex items-center justify-center group-hover:border-accent group-hover:bg-accent group-hover:text-background transition-all duration-500">
                       <ArrowUpRight strokeWidth={1.5} size={18} />

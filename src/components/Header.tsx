@@ -6,18 +6,20 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { gallery } from "@/data";
-import { useLocale } from "@/context/LocaleContext";
+import { useCopy } from "@/context/LocaleContext";
+import { galleryCity } from "@/lib/copy";
+import type { Locale } from "@/lib/locale";
 
 const navLinks = [
-  { name: "Exposiciones", nameEn: "Exhibitions", path: "/programa" },
-  { name: "Artistas", nameEn: "Artists", path: "/artistas" },
-  { name: "Noticias", nameEn: "News", path: "/noticias" },
-  { name: "Proyecto", nameEn: "Project", path: "/proyecto" },
+  { key: "navExhibitions" as const, path: "/programa" },
+  { key: "navArtists" as const, path: "/artistas" },
+  { key: "navNews" as const, path: "/noticias" },
+  { key: "navProject" as const, path: "/proyecto" },
 ];
 
 export function Header() {
   const pathname = usePathname();
-  const { locale } = useLocale();
+  const { t } = useCopy();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -56,7 +58,7 @@ export function Header() {
             className="group hover:text-accent transition-colors z-50 p-2 flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.2em] font-semibold text-foreground"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-expanded={isMenuOpen}
-            aria-label={isMenuOpen ? (locale === "es" ? "Cerrar menú" : "Close menu") : locale === "es" ? "Abrir menú" : "Open menu"}
+            aria-label={isMenuOpen ? t.closeMenu : t.openMenu}
           >
             <span className="hidden md:block overflow-hidden relative h-4 w-16">
               <span
@@ -64,14 +66,14 @@ export function Header() {
                   isMenuOpen ? "-translate-y-full" : "translate-y-0"
                 }`}
               >
-                {locale === "es" ? "Menu" : "Menu"}
+                {t.menu}
               </span>
               <span
                 className={`absolute inset-0 flex items-center transition-transform duration-500 ease-out ${
                   isMenuOpen ? "translate-y-0" : "translate-y-full"
                 }`}
               >
-                {locale === "es" ? "Cerrar" : "Close"}
+                {t.close}
               </span>
             </span>
             <div className="relative w-6 h-6 flex items-center justify-center">
@@ -107,7 +109,7 @@ export function Header() {
                       pathname.startsWith(link.path) ? "text-accent italic" : "text-foreground"
                     }`}
                   >
-                    {locale === "es" ? link.name : link.nameEn}
+                    {t[link.key]}
                   </Link>
                 </motion.div>
               ))}
@@ -123,7 +125,7 @@ export function Header() {
                 href={`mailto:${gallery.email}`}
                 className="hover:text-foreground transition-colors flex items-center justify-between group"
               >
-                <span>{locale === "es" ? "Contacto General" : "General contact"}</span>
+                <span>{t.generalContact}</span>
                 <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
                   ↗
                 </span>
@@ -133,7 +135,7 @@ export function Header() {
                 onClick={() => setIsMenuOpen(false)}
                 className="hover:text-foreground transition-colors flex items-center justify-between group"
               >
-                <span>{locale === "es" ? "Visita y Horarios" : "Visit and hours"}</span>
+                <span>{t.visitAndHours}</span>
                 <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all">
                   ↗
                 </span>
@@ -147,7 +149,7 @@ export function Header() {
 }
 
 export function Footer() {
-  const { locale, setLocale } = useLocale();
+  const { locale, setLocale, t } = useCopy();
 
   return (
     <footer className="bg-foreground text-background pt-32 pb-12 px-6 md:px-12">
@@ -160,29 +162,29 @@ export function Footer() {
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 font-mono text-[10px] uppercase tracking-[0.2em] mb-32">
           <div className="md:col-span-3 flex flex-col gap-4">
-            <span className="text-background/40">{locale === "es" ? "Ubicación" : "Location"}</span>
+            <span className="text-background/40">{t.location}</span>
             <p className="leading-relaxed text-background/90">
               {gallery.addressLine}
               <br />
               {gallery.postalCode} {gallery.neighborhood}
               <br />
-              {gallery.city}
+              {galleryCity(locale)}
             </p>
           </div>
 
           <div className="md:col-span-3 flex flex-col gap-4">
-            <span className="text-background/40">{locale === "es" ? "Horario de Salas" : "Gallery hours"}</span>
+            <span className="text-background/40">{t.hoursRooms}</span>
             <p className="leading-relaxed text-background/90">
-              {locale === "es" ? "Miércoles — Sábado" : "Wednesday — Saturday"}
+              {t.wedSatLong}
               <br />
               12:00H — 20:00H
               <br />
-              {locale === "es" ? "Domingo — Martes: Cerrado" : "Sunday — Tuesday: Closed"}
+              {t.sunTueClosed}
             </p>
           </div>
 
           <div className="md:col-span-3 flex flex-col gap-4">
-            <span className="text-background/40">{locale === "es" ? "Contacto General" : "General contact"}</span>
+            <span className="text-background/40">{t.generalContact}</span>
             <a
               href={`mailto:${gallery.email}`}
               className="text-background/90 hover:text-accent transition-colors w-fit"
@@ -198,7 +200,7 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-3 flex flex-col gap-4">
-            <span className="text-background/40">{locale === "es" ? "Plataformas" : "Platforms"}</span>
+            <span className="text-background/40">{t.platforms}</span>
             <a
               href={gallery.instagram}
               target="_blank"
@@ -220,42 +222,45 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center font-sans text-xs uppercase tracking-[0.15em] font-semibold text-background/40 gap-6 md:gap-0">
-          <div>© {new Date().getFullYear()} NAU 22 GALERÍA CONTEMPORÁNEA</div>
+          <div>© {new Date().getFullYear()} {t.copyright}</div>
           <div className="flex items-center gap-4 md:gap-6">
-            <button
-              type="button"
-              className={
-                locale === "es"
-                  ? "text-background/90 hover:text-accent transition-colors"
-                  : "text-background/40 hover:text-background/90 transition-colors"
-              }
-              onClick={() => setLocale("es")}
-            >
-              ESP
-            </button>
+            <LangButton code="es" label="ESP" locale={locale} onSelect={setLocale} />
             <span className="w-px h-3 bg-background/20" />
-            <button
-              type="button"
-              className="text-background/40 hover:text-background/90 transition-colors"
-              aria-label="Català (próximamente)"
-            >
-              CAT
-            </button>
+            <LangButton code="ca" label="CAT" locale={locale} onSelect={setLocale} />
             <span className="w-px h-3 bg-background/20" />
-            <button
-              type="button"
-              className={
-                locale === "en"
-                  ? "text-background/90 hover:text-accent transition-colors"
-                  : "text-background/40 hover:text-background/90 transition-colors"
-              }
-              onClick={() => setLocale("en")}
-            >
-              ENG
-            </button>
+            <LangButton code="en" label="ENG" locale={locale} onSelect={setLocale} />
           </div>
         </div>
       </div>
     </footer>
+  );
+}
+
+function LangButton({
+  code,
+  label,
+  locale,
+  onSelect,
+}: {
+  code: Locale;
+  label: string;
+  locale: Locale;
+  onSelect: (l: Locale) => void;
+}) {
+  const active = locale === code;
+  return (
+    <button
+      type="button"
+      aria-pressed={active}
+      aria-label={label}
+      className={
+        active
+          ? "text-background/90 hover:text-accent transition-colors"
+          : "text-background/40 hover:text-background/90 transition-colors"
+      }
+      onClick={() => onSelect(code)}
+    >
+      {label}
+    </button>
   );
 }

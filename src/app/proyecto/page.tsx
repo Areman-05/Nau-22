@@ -3,8 +3,9 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { gallery, historyIntro, milestones } from "@/data";
-import { useLocale } from "@/context/LocaleContext";
+import { gallery, getHistoryIntro, milestones } from "@/data";
+import { useCopy } from "@/context/LocaleContext";
+import { galleryCity, milestoneItems } from "@/lib/copy";
 import { useIsClient } from "@/lib/useIsClient";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
@@ -13,7 +14,8 @@ const BUILDING =
   "https://images.unsplash.com/photo-1565610222536-ef125c59da2e?auto=format&fit=crop&w=2400&q=80";
 
 export default function ProyectoPage() {
-  const { locale } = useLocale();
+  const { locale, t } = useCopy();
+  const history = getHistoryIntro(locale);
   const ready = useIsClient();
   const photoRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -40,7 +42,7 @@ export default function ProyectoPage() {
           transition={{ duration: 1, ease: easeOut }}
           className="font-serif text-6xl md:text-[10rem] lg:text-[12rem] leading-[0.8] tracking-tighter uppercase"
         >
-          {locale === "es" ? "Proyecto" : "Project"}
+          {t.project}
         </motion.h1>
         <motion.div
           initial={ready ? { opacity: 0, y: 12 } : false}
@@ -53,7 +55,7 @@ export default function ProyectoPage() {
             className="group inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-accent hover:text-foreground transition-colors duration-500"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-accent group-hover:bg-foreground transition-colors duration-500" />
-            {locale === "es" ? "Leer manifiesto" : "Read manifesto"}
+            {t.readManifesto}
             <span className="opacity-60 group-hover:translate-x-1 transition-transform duration-500">→</span>
           </Link>
         </motion.div>
@@ -66,16 +68,12 @@ export default function ProyectoPage() {
         <motion.img
           style={{ y }}
           src={BUILDING}
-          alt={
-            locale === "es"
-              ? "Nave industrial vacía · Poblenou 22@"
-              : "Empty industrial warehouse · Poblenou 22@"
-          }
+          alt={t.warehouseAlt}
           className="w-full h-[130%] object-cover object-center absolute top-[-15%]"
         />
         <div className="absolute inset-0 bg-black/10 pointer-events-none" />
         <div className="absolute bottom-6 right-6 md:bottom-10 md:right-12 font-mono text-[10px] uppercase tracking-[0.2em] text-white/80 mix-blend-difference">
-          {locale === "es" ? "Nave · Pujades 102 · 22@" : "Warehouse · Pujades 102 · 22@"}
+          {t.warehouseCaption}
         </div>
       </section>
 
@@ -83,18 +81,15 @@ export default function ProyectoPage() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-8 mb-16 md:mb-24">
           <div className="md:col-span-3">
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground sticky top-40">
-              {locale === "es" ? "Historia" : "History"}
+              {t.history}
             </p>
           </div>
           <div className="md:col-span-8 md:col-start-5">
             <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl uppercase tracking-tighter leading-[0.9] mb-8">
-              {locale === "es" ? historyIntro.title.es : historyIntro.title.en}
+              {history.title}
             </h2>
             <div className="font-sans text-base md:text-lg text-foreground/60 max-w-2xl leading-relaxed flex flex-col gap-6">
-              {(locale === "es"
-                ? historyIntro.paragraphs.es
-                : historyIntro.paragraphs.en
-              ).map((p) => (
+              {history.paragraphs.map((p) => (
                 <p key={p.slice(0, 48)}>{p}</p>
               ))}
             </div>
@@ -102,7 +97,7 @@ export default function ProyectoPage() {
               href="/proyecto/manifiesto"
               className="group mt-10 inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-accent hover:text-foreground transition-colors duration-500"
             >
-              {locale === "es" ? "Leer manifiesto" : "Read manifesto"}
+              {t.readManifesto}
               <span className="opacity-60 group-hover:translate-x-1 transition-transform duration-500">→</span>
             </Link>
           </div>
@@ -124,8 +119,8 @@ export default function ProyectoPage() {
                   </div>
                 </div>
                 <div className="md:col-span-8 flex flex-col gap-14 md:gap-20 mt-4 md:mt-0">
-                  {m.items.map((item) => {
-                    const paras = locale === "es" ? item.paragraphs : item.paragraphsEn;
+                  {milestoneItems(m, locale).map((item) => {
+                    const paras = item.paragraphs;
                     const isShort = paras.length === 1;
                     const isLong = paras.length >= 3;
                     return (
@@ -144,7 +139,7 @@ export default function ProyectoPage() {
                               : "font-serif text-2xl md:text-3xl lg:text-4xl leading-[1.15] tracking-tight text-foreground mb-5"
                           }
                         >
-                          {locale === "es" ? item.title : item.titleEn}
+                          {item.title}
                         </h3>
                         <div
                           className={`font-sans leading-relaxed text-foreground/65 flex flex-col ${
@@ -177,17 +172,15 @@ export default function ProyectoPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 mb-16 md:mb-20">
             <div className="md:col-span-3">
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground sticky top-40">
-                {locale === "es" ? "Visitar" : "Visit"}
+                {t.visit}
               </p>
             </div>
             <div className="md:col-span-8 md:col-start-5">
               <h2 className="font-serif text-4xl md:text-6xl uppercase tracking-tighter leading-[0.9] mb-6">
-                {locale === "es" ? "Cómo llegar a la nau" : "How to reach the warehouse"}
+                {t.howToReach}
               </h2>
               <p className="font-sans text-base md:text-lg text-foreground/55 max-w-xl leading-relaxed">
-                {locale === "es"
-                  ? "Entrada libre en horario de salas. Sin cita para ver la exposición. Para prensa, préstamos o consulta de obra: escribe."
-                  : "Free entry during gallery hours. No appointment to see the exhibition. For press, loans or work enquiries: write."}
+                {t.visitLead}
               </p>
             </div>
           </div>
@@ -195,34 +188,32 @@ export default function ProyectoPage() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8">
             <div className="md:col-span-4 md:col-start-4 flex flex-col gap-4">
               <h3 className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground border-b border-foreground/10 pb-4">
-                {locale === "es" ? "Dirección" : "Address"}
+                {t.address}
               </h3>
               <p className="font-sans text-xl md:text-2xl leading-snug text-foreground">
                 {gallery.addressLine}
                 <br />
                 {gallery.postalCode} {gallery.neighborhood}
                 <br />
-                {gallery.city}
+                {galleryCity(locale)}
               </p>
               <p className="font-sans text-sm text-foreground/45 leading-relaxed mt-2">
-                {locale === "es"
-                  ? "Metro L4 · Poblenou. Entrada por Pujades."
-                  : "Metro L4 · Poblenou. Entrance on Pujades."}
+                {t.metro}
               </p>
             </div>
 
             <div className="md:col-span-4 md:col-start-9 flex flex-col gap-4">
               <h3 className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground border-b border-foreground/10 pb-4">
-                {locale === "es" ? "Horario" : "Hours"}
+                {t.hours}
               </h3>
               <div className="font-sans text-lg md:text-xl flex flex-col gap-4 text-foreground">
                 <div className="flex justify-between gap-6 border-b border-foreground/5 pb-3">
-                  <span>{locale === "es" ? "Mié — Sáb" : "Wed — Sat"}</span>
+                  <span>{t.wedSat}</span>
                   <span className="text-foreground/60">12:00 — 20:00</span>
                 </div>
                 <div className="flex justify-between gap-6 text-foreground/40">
-                  <span>{locale === "es" ? "Dom — Mar" : "Sun — Tue"}</span>
-                  <span>{locale === "es" ? "Cerrado" : "Closed"}</span>
+                  <span>{t.sunTue}</span>
+                  <span>{t.closed}</span>
                 </div>
               </div>
               <a
@@ -231,7 +222,7 @@ export default function ProyectoPage() {
               >
                 <span>{gallery.email}</span>
                 <span className="font-mono text-[10px] uppercase tracking-widest opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
-                  {locale === "es" ? "Escribir ↗" : "Write ↗"}
+                  {t.write}
                 </span>
               </a>
             </div>

@@ -4,7 +4,9 @@ import { useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { ArrowUpRight, X } from "lucide-react";
 import { gallery } from "@/data";
-import { useLocale } from "@/context/LocaleContext";
+import { useCopy } from "@/context/LocaleContext";
+import { ui } from "@/lib/ui";
+import type { Locale } from "@/lib/locale";
 import { useIsClient } from "@/lib/useIsClient";
 
 export type EnquireContext = {
@@ -14,20 +16,19 @@ export type EnquireContext = {
   collaborator?: string;
 };
 
-function buildMail(context: EnquireContext | undefined, name: string, email: string, message: string, locale: "es" | "en") {
+function buildMail(context: EnquireContext | undefined, name: string, email: string, message: string, locale: Locale) {
+  const t = ui[locale];
   const topic = context?.work ?? context?.collaborator ?? context?.artist ?? context?.exhibition ?? "";
   const subject = topic
-    ? `${locale === "es" ? "Consulta" : "Enquiry"}: ${topic}`
-    : locale === "es"
-      ? "Consulta — Nau 22"
-      : "Enquiry — Nau 22";
+    ? `${t.enquirySubject}: ${topic}`
+    : t.enquiryFallback;
   const meta = [
-    `${locale === "es" ? "Nombre" : "Name"}: ${name}`,
+    `${t.name}: ${name}`,
     `Email: ${email}`,
-    context?.exhibition ? `${locale === "es" ? "Exposición" : "Exhibition"}: ${context.exhibition}` : null,
-    context?.artist ? `${locale === "es" ? "Artista" : "Artist"}: ${context.artist}` : null,
-    context?.work ? `${locale === "es" ? "Obra" : "Work"}: ${context.work}` : null,
-    context?.collaborator ? `${locale === "es" ? "Colaborador" : "Collaborator"}: ${context.collaborator}` : null,
+    context?.exhibition ? `${t.exhibition}: ${context.exhibition}` : null,
+    context?.artist ? `${t.artist}: ${context.artist}` : null,
+    context?.work ? `${t.work}: ${context.work}` : null,
+    context?.collaborator ? `${t.collaborator}: ${context.collaborator}` : null,
   ].filter((line): line is string => Boolean(line));
   const body = `${meta.join("\n")}\n\n${message}`;
   return { subject, body, href: `mailto:${gallery.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}` };
@@ -44,7 +45,7 @@ export function EnquireButton({
   label?: string;
   className?: string;
 }) {
-  const { locale } = useLocale();
+  const { locale, t } = useCopy();
   const formId = useId();
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
@@ -67,15 +68,7 @@ export function EnquireButton({
     };
   }, [open]);
 
-  const defaultLabel =
-    label ??
-    (variant === "line"
-      ? locale === "es"
-        ? "Contactar"
-        : "Contact"
-      : locale === "es"
-        ? "Consultar"
-        : "Enquire");
+  const defaultLabel = label ?? (variant === "line" ? t.contact : t.enquire);
 
   const topic = context?.work ?? context?.collaborator ?? context?.artist ?? context?.exhibition;
 
@@ -123,7 +116,7 @@ export function EnquireButton({
             <div className="fixed inset-0 z-[80] flex items-end md:items-center justify-center p-0 md:p-8">
               <button
                 type="button"
-                aria-label={locale === "es" ? "Cerrar" : "Close"}
+                aria-label={t.close}
                 className="absolute inset-0 bg-foreground/40 backdrop-blur-sm"
                 onClick={() => setOpen(false)}
               />
@@ -137,7 +130,7 @@ export function EnquireButton({
                   type="button"
                   onClick={() => setOpen(false)}
                   className="absolute top-6 right-6 text-foreground/50 hover:text-foreground transition-colors"
-                  aria-label={locale === "es" ? "Cerrar" : "Close"}
+                  aria-label={t.close}
                 >
                   <X size={20} strokeWidth={1.5} />
                 </button>
@@ -147,24 +140,20 @@ export function EnquireButton({
                   id={`${formId}-title`}
                   className="font-serif text-4xl md:text-5xl tracking-tight uppercase leading-none mb-4"
                 >
-                  {locale === "es" ? "Consulta" : "Enquiry"}
+                  {t.enquiry}
                 </h2>
                 {topic ? (
                   <p className="font-serif text-xl italic text-foreground/70 mb-10">{topic}</p>
                 ) : (
                   <p className="font-sans text-sm text-foreground/60 mb-10">
-                    {locale === "es"
-                      ? "Disponibilidad, visitas o prensa."
-                      : "Availability, visits or press."}
+                    {t.enquiryGeneric}
                   </p>
                 )}
 
                 {sent ? (
                   <div className="flex flex-col gap-6">
                     <p className="font-sans text-base text-foreground/80 leading-relaxed">
-                      {locale === "es"
-                        ? "Si no se abre tu correo, escríbenos directamente. El asunto y el mensaje ya están preparados."
-                        : "If your mail app does not open, write to us directly. The subject and message are already prepared."}
+                      {t.enquiryMailFallback}
                     </p>
                     <a
                       href={`mailto:${gallery.email}`}
@@ -177,14 +166,14 @@ export function EnquireButton({
                       onClick={() => setOpen(false)}
                       className="mt-4 font-sans text-xs uppercase tracking-[0.15em] font-semibold text-foreground hover:text-accent transition-colors w-fit"
                     >
-                      {locale === "es" ? "Cerrar" : "Close"}
+                      {t.close}
                     </button>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="flex flex-col gap-8">
                     <label className="flex flex-col gap-3">
                       <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                        {locale === "es" ? "Nombre" : "Name"}
+                        {t.name}
                       </span>
                       <input
                         required
@@ -207,7 +196,7 @@ export function EnquireButton({
                     </label>
                     <label className="flex flex-col gap-3">
                       <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                        {locale === "es" ? "Mensaje" : "Message"}
+                        {t.message}
                       </span>
                       <textarea
                         required
@@ -221,7 +210,7 @@ export function EnquireButton({
                       type="submit"
                       className="self-start inline-flex items-center gap-3 font-sans text-xs uppercase tracking-[0.15em] font-semibold text-foreground hover:text-accent transition-colors"
                     >
-                      <span>{locale === "es" ? "Enviar consulta" : "Send enquiry"}</span>
+                      <span>{t.sendEnquiry}</span>
                       <ArrowUpRight size={16} strokeWidth={1.5} />
                     </button>
                   </form>

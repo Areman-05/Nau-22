@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { getExhibitionsByStatus, type Exhibition } from "@/data";
-import { useLocale } from "@/context/LocaleContext";
+import { useCopy } from "@/context/LocaleContext";
+import { localizeDate } from "@/lib/copy";
 import { useIsClient } from "@/lib/useIsClient";
 
 export default function ProgramPage() {
-  const { locale } = useLocale();
+  const { locale, t } = useCopy();
   const currents = getExhibitionsByStatus("current");
   const past = getExhibitionsByStatus("past");
 
@@ -34,7 +35,7 @@ export default function ProgramPage() {
     <div className="pt-8 pb-32 px-6 md:px-12 max-w-[1600px] mx-auto min-h-screen bg-background">
       <div className="mb-24 md:mb-40">
         <h1 className="font-serif text-6xl md:text-[10rem] lg:text-[12rem] leading-[0.8] tracking-tighter uppercase">
-          {locale === "es" ? "Programa" : "Programme"}
+          {t.programme}
         </h1>
       </div>
 
@@ -57,7 +58,7 @@ export default function ProgramPage() {
 
       <section className="pt-24">
         <h2 className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-24 border-b border-foreground/10 pb-6">
-          {locale === "es" ? "Archivo histórico" : "Historical archive"}
+          {t.historicalArchive}
         </h2>
         <div className="flex flex-col">
           {years.map((year) => (
@@ -88,7 +89,7 @@ export default function ProgramPage() {
                     <div className="flex flex-col min-w-0">
                       <div className="flex items-center gap-6 mb-4">
                         <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                          {exh.date.split(",")[0]}
+                          {localizeDate(exh.date.split(",")[0], locale)}
                         </span>
                         <span className="h-px bg-foreground/10 flex-grow group-hover:bg-foreground transition-colors duration-700" />
                       </div>
@@ -121,7 +122,7 @@ function CurrentCard({
   showLive?: boolean;
   alignEnd?: boolean;
 }) {
-  const { locale } = useLocale();
+  const { t } = useCopy();
   const ready = useIsClient();
   return (
     <motion.div
@@ -135,7 +136,7 @@ function CurrentCard({
         {showLive ? (
           <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent mb-6 flex items-center gap-4">
             <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-            {locale === "es" ? "Exhibición actual" : "Current exhibition"}
+            {t.currentExhibition}
           </div>
         ) : null}
         <div className={`w-full ${aspect ?? "aspect-[3/4]"} mb-6 overflow-hidden bg-muted`}>

@@ -5,22 +5,22 @@ import { notFound, useParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { getNews } from "@/data";
-import { useLocale } from "@/context/LocaleContext";
+import { useCopy } from "@/context/LocaleContext";
+import { newsCopy } from "@/lib/copy";
 import { useIsClient } from "@/lib/useIsClient";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export default function NoticiaDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const { locale } = useLocale();
+  const { locale, t } = useCopy();
   const ready = useIsClient();
   const item = getNews(id);
 
   if (!item) notFound();
 
-  const title = locale === "es" ? item.title : item.titleEn;
-  const excerpt = locale === "es" ? item.excerpt : item.excerptEn;
-  const quote = locale === "es" ? item.quote : item.quoteEn;
+  const copy = newsCopy(item, locale);
+  const { title, excerpt, quote } = copy;
 
   return (
     <div className="w-full bg-background min-h-screen flex flex-col overflow-hidden">
@@ -32,7 +32,7 @@ export default function NoticiaDetailPage() {
           >
             <ArrowLeft size={18} strokeWidth={1} className="group-hover:-translate-x-2 transition-transform duration-500 ease-out" />
             <span className="font-sans text-xs uppercase tracking-[0.15em] font-semibold">
-              {locale === "es" ? "Índice del Journal" : "Journal index"}
+              {t.journalIndex}
             </span>
           </Link>
         </motion.div>
@@ -43,7 +43,7 @@ export default function NoticiaDetailPage() {
           <div className="md:col-span-3 flex flex-col gap-6 md:mt-4 border-t border-foreground/10 pt-4 md:border-none md:pt-0">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.1, ease: easeOut }}>
               <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent mb-2">
-                {locale === "es" ? item.category : item.categoryEn}
+                {copy.category}
               </div>
               <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{item.date}</div>
             </motion.div>
@@ -80,17 +80,10 @@ export default function NoticiaDetailPage() {
               </motion.div>
             ) : (
               <div className="sticky top-40 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground border-l border-foreground/10 pl-6 hidden md:block">
-                {locale === "es" ? (
-                  <>
-                    Nota de Prensa /<br />
-                    Comunicado Oficial
-                  </>
-                ) : (
-                  <>
-                    Press note /<br />
-                    Official statement
-                  </>
-                )}
+                <>
+                  {t.pressNote} /<br />
+                  {t.official}
+                </>
               </div>
             )}
           </div>
@@ -113,9 +106,7 @@ export default function NoticiaDetailPage() {
               className="flex flex-col gap-8"
             >
               <p>
-                {locale === "es"
-                  ? "La decisión subraya el compromiso de la galería con prácticas que cuestionan la materialidad en la era contemporánea. Este reconocimiento no solo valida la trayectoria del artista, sino que sitúa a Nau 22 en el ecosistema cultural europeo."
-                  : "The decision underlines the gallery’s commitment to practices that question materiality in the contemporary era. The recognition validates the artist’s trajectory and places Nau 22 in the European cultural ecosystem."}
+                {t.newsBody1}
               </p>
 
               {quote ? (
@@ -125,9 +116,7 @@ export default function NoticiaDetailPage() {
               ) : null}
 
               <p>
-                {locale === "es"
-                  ? "El trabajo de la última temporada ha abierto un debate sobre cómo las naves del 22@ se reprograman desde el rigor curatorial. La pieza formará parte de una itinerancia que comienza el año que viene."
-                  : "Last season’s work opened a debate on how 22@ warehouses are reprogrammed through curatorial rigour. The piece will travel in an itinerary that begins next year."}
+                {t.newsBody2}
               </p>
             </motion.div>
 
@@ -138,12 +127,10 @@ export default function NoticiaDetailPage() {
               className="mt-16 pt-8 border-t border-foreground/10 flex flex-col gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground"
             >
               <span>
-                {locale === "es"
-                  ? "Publicado por: Dirección Curatorial, Nau 22"
-                  : "Published by: Curatorial Office, Nau 22"}
+                {t.publishedBy}
               </span>
               <span>
-                {locale === "es" ? "Referencia Archivo" : "Archive ref"}: {item.id.toUpperCase()}-2026
+                {t.archiveRef}: {item.id.toUpperCase()}-2026
               </span>
             </motion.div>
           </div>

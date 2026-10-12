@@ -4,13 +4,14 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { artists, getExhibitionsByStatus, getLatestNews } from "@/data";
-import { useLocale } from "@/context/LocaleContext";
+import { useCopy } from "@/context/LocaleContext";
+import { localizeCountry, newsCopy } from "@/lib/copy";
 import { useIsClient } from "@/lib/useIsClient";
 
 const easeOut = [0.16, 1, 0.3, 1] as const;
 
 export default function HomePage() {
-  const { locale } = useLocale();
+  const { locale, t } = useCopy();
   const ready = useIsClient();
   const currents = getExhibitionsByStatus("current");
   const upcomingList = getExhibitionsByStatus("upcoming");
@@ -37,20 +38,18 @@ export default function HomePage() {
             <div className="md:col-span-3">
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent flex items-center gap-3">
                 <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-                {locale === "es" ? "Espacio de Arte Contemporáneo" : "Contemporary art space"}
+                {t.space}
               </span>
             </div>
             <div className="md:col-span-6 font-sans text-lg md:text-2xl text-foreground/80 leading-snug">
-              {locale === "es"
-                ? "Operamos en la fricción entre la ruina industrial y el rigor curatorial del distrito 22@ de Barcelona."
-                : "We work in the friction between industrial ruin and curatorial rigour in Barcelona’s 22@ district."}
+              {t.claim}
             </div>
             <div className="md:col-span-3 flex md:justify-end items-start mt-4 md:mt-0">
               <Link
                 href="/proyecto"
                 className="font-sans text-xs uppercase tracking-[0.15em] font-semibold text-foreground hover:text-accent transition-colors border-b border-foreground/20 hover:border-accent pb-1 flex items-center gap-2"
               >
-                {locale === "es" ? "Conocer la Galería" : "About the gallery"} <ArrowUpRight size={14} />
+                {t.aboutGallery} <ArrowUpRight size={14} />
               </Link>
             </div>
           </div>
@@ -77,7 +76,7 @@ export default function HomePage() {
                   className="w-full h-full object-cover mix-blend-multiply grayscale opacity-90 group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-[2s] ease-out shadow-lg"
                 />
                 <div className="absolute top-6 left-6 md:top-10 md:left-10 bg-background/90 backdrop-blur px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground">
-                  {locale === "es" ? "En Sala" : "On view"}
+                  {t.onView}
                 </div>
               </Link>
               <div className="flex justify-between items-start">
@@ -108,7 +107,7 @@ export default function HomePage() {
               >
                 <Link href={`/programa/${upcomingExh.id}`} className="flex flex-col">
                   <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-4 border-b border-foreground/10 pb-2">
-                    {locale === "es" ? "Próxima Inauguración" : "Next opening"}
+                    {t.nextOpening}
                   </div>
                   <div className="w-full aspect-square bg-black/[0.02] p-4 mb-4 overflow-hidden">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -149,7 +148,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex flex-col">
                     <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent mb-1">
-                      {locale === "es" ? "Focus Artista" : "Artist focus"}
+                      {t.artistFocus}
                     </span>
                     <h3 className="font-serif text-2xl uppercase tracking-tighter">{focusArtist.name}</h3>
                   </div>
@@ -165,13 +164,13 @@ export default function HomePage() {
         <div className="px-6 md:px-12 max-w-[1600px] mx-auto w-full">
           <div className="flex justify-between items-end mb-16 border-b border-background/20 pb-6">
             <h2 className="font-serif text-4xl tracking-tight uppercase">
-              {locale === "es" ? "Artistas Representados" : "Represented artists"}
+              {t.represented}
             </h2>
             <Link
               href="/artistas"
               className="font-mono text-[10px] uppercase tracking-[0.2em] text-background/50 hover:text-background transition-colors flex items-center gap-2"
             >
-              {locale === "es" ? "Ver Roster Completo" : "Full roster"} <ArrowRight size={12} />
+              {t.fullRoster} <ArrowRight size={12} />
             </Link>
           </div>
 
@@ -197,7 +196,7 @@ export default function HomePage() {
                     {artist.name}
                   </h3>
                   <span className="font-sans text-[10px] uppercase tracking-widest font-semibold text-background/50 mt-1">
-                    {artist.country}
+                    {localizeCountry(artist.country, locale)}
                   </span>
                 </Link>
               </motion.div>
@@ -211,20 +210,20 @@ export default function HomePage() {
           <div className="md:col-span-4 flex flex-col pr-0 md:pr-12">
             <h2 className="font-serif text-5xl md:text-6xl tracking-tighter uppercase mb-6">Journal</h2>
             <p className="font-sans text-sm text-foreground/70 leading-relaxed mb-12">
-              {locale === "es"
-                ? "Publicaciones, notas de prensa, adquisiciones institucionales y premios de los artistas representados por la galería."
-                : "Publications, press notes, institutional acquisitions and prizes of the artists represented by the gallery."}
+              {t.journalLead}
             </p>
             <Link href="/noticias" className="group inline-flex items-center gap-4 text-foreground hover:text-accent transition-colors w-fit">
               <span className="font-sans text-xs uppercase tracking-[0.15em] font-semibold">
-                {locale === "es" ? "Leer todas las entradas" : "Read all entries"}
+                {t.readAll}
               </span>
               <span className="h-px w-8 bg-foreground/20 group-hover:bg-accent transition-colors duration-500" />
             </Link>
           </div>
 
           <div className="md:col-span-8 flex flex-col border-t border-foreground/10">
-            {newsItems.map((item) => (
+            {newsItems.map((item) => {
+              const copy = newsCopy(item, locale);
+              return (
               <Link
                 href={`/noticias/${item.id}`}
                 key={item.id}
@@ -233,19 +232,20 @@ export default function HomePage() {
                 <div className="w-48 flex-shrink-0 mb-4 md:mb-0 flex flex-col gap-2">
                   <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{item.date}</span>
                   <span className="font-sans text-[10px] uppercase tracking-widest font-semibold text-accent">
-                    {locale === "es" ? item.category : item.categoryEn}
+                    {copy.category}
                   </span>
                 </div>
                 <div className="flex-grow">
                   <h3 className="font-serif text-2xl md:text-3xl tracking-tight text-foreground/90 group-hover:text-accent group-hover:italic transition-all duration-300 leading-snug pr-4">
-                    {locale === "es" ? item.title : item.titleEn}
+                    {copy.title}
                   </h3>
                 </div>
                 <div className="hidden md:block ml-8 text-accent opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
                   <ArrowUpRight size={20} strokeWidth={1.5} />
                 </div>
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
